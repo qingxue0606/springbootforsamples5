@@ -34,29 +34,7 @@ public class DemoController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/word", method=RequestMethod.GET)
-	public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-		
-		PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-		poCtrl.setServerPage("/poserver.zz");//设置服务页面
-		poCtrl.addCustomToolButton("保存","Save",1);//添加自定义保存按钮
-		poCtrl.addCustomToolButton("盖章","AddSeal",2);//添加自定义盖章按钮
-		poCtrl.setSaveFilePage("/save");//设置处理文件保存的请求方法
-		//打开word
-		poCtrl.webOpen("d:\\test.doc",OpenModeType.docAdmin,"张三");
-		map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-		
-		ModelAndView mv = new ModelAndView("Word");
-		return mv;
-	}
-	
-	@RequestMapping("/save")
-	public void saveFile(HttpServletRequest request, HttpServletResponse response){
-		FileSaver fs = new FileSaver(request, response);
-		fs.saveToFile("d:\\" + fs.getFileName());
-		fs.close();
-	}
-	
+
 	
 	/**
 	 * 添加PageOffice的服务器端授权程序Servlet（必须）
