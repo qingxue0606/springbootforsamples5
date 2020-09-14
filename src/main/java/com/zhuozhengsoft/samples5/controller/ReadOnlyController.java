@@ -16,22 +16,20 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/ReadOnly/")
 public class ReadOnlyController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public ReadOnlyController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        poCtrl.setAllowCopy(false);//禁止拷贝
+        poCtrl.setMenubar(false);//隐藏菜单栏
+        poCtrl.setOfficeToolbars(false);//隐藏Office工具条
+        poCtrl.setCustomToolbar(false);//隐藏自定义工具栏
+        poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
+        //设置页面的显示标题
+        poCtrl.setCaption("演示：文件在线安全浏览");
 
         //打开Word文档
         poCtrl.webOpen("/doc/ReadOnly/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -41,11 +39,5 @@ public class ReadOnlyController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "ReadOnly\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

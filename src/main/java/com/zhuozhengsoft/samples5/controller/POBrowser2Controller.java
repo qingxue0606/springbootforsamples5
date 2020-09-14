@@ -24,11 +24,11 @@ public class POBrowser2Controller {
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
-        //添加自定义按钮
+//添加自定义按钮
         poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("关闭","Close",21);
 
-
+        poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 

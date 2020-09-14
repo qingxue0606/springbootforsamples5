@@ -2,6 +2,7 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,18 +17,19 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordDisableRight/")
 public class WordDisableRightController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordDisableRightController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        WordDocument wordDoc = new WordDocument();
+        wordDoc.setDisableWindowRightClick(true);//禁止word鼠标右键
+        //wordDoc.setDisableWindowDoubleClick(true);//禁止word鼠标双击
+        //wordDoc.setDisableWindowSelection(true);//禁止在word中选择文件内容
 
+        poCtrl.setWriter(wordDoc);
 
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
@@ -41,11 +43,6 @@ public class WordDisableRightController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordDisableRight\\"+fs.getFileName());
-        fs.close();
-    }
+
 
 }

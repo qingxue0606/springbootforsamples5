@@ -16,22 +16,14 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/CustomToolButton/")
 public class CustomToolButtonController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public CustomToolButtonController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        // 添加一个自定义工具条上的按钮，AddCustomToolButton的参数说明，详见开发帮助
+        poCtrl.addCustomToolButton("测试按钮","myTest",0);
 
         //打开Word文档
         poCtrl.webOpen("/doc/CustomToolButton/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -41,11 +33,5 @@ public class CustomToolButtonController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "CustomToolButton\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

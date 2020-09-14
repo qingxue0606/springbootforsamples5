@@ -2,6 +2,8 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,23 +18,29 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordResImage/")
 public class WordResImageController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordResImageController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
+        WordDocument worddoc = new WordDocument();
+        //先在要插入word文件的位置手动插入书签,书签必须以“PO_”为前缀
+        //给DataRegion赋值,值的形式为："[word]word文件路径[/word]、[excel]excel文件路径[/excel]、[image]图片路径[/image]"
+        DataRegion data1 = worddoc.openDataRegion("PO_p1");
+        data1.setValue("[image]/doc/WordResImage/1.jpg[/image]");
+        DataRegion data2 = worddoc.openDataRegion("PO_p2");
+        data2.setValue("[word]/doc/WordResImage/2.doc[/word]");
+        DataRegion data3 = worddoc.openDataRegion("PO_p3");
+        data3.setValue("[word]/doc/WordResImage/3.doc[/word]");
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.setWriter(worddoc);
+        poCtrl.setCaption("演示：后台编程插入图片到数据区域(企业版)");
 
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
+        //隐藏自定义工具栏
+        poCtrl.setCustomToolbar(false);
         //打开Word文档
         poCtrl.webOpen("/doc/WordResImage/test.doc", OpenModeType.docNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
@@ -41,11 +49,5 @@ public class WordResImageController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordResImage\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

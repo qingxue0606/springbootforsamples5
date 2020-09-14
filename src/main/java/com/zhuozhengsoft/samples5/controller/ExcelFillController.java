@@ -2,6 +2,9 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.excelwriter.Cell;
+import com.zhuozhengsoft.pageoffice.excelwriter.Sheet;
+import com.zhuozhengsoft.pageoffice.excelwriter.Workbook;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,41 +14,55 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value="/ExcelFill/")
 public class ExcelFillController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public ExcelFillController() throws FileNotFoundException {
-    }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
+
+    @RequestMapping(value="Excel", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        poCtrl.setCaption("简单的给Excel赋值");
+        //定义Workbook对象
+        Workbook workBook = new Workbook();
+        //定义Sheet对象，"Sheet1"是打开的Excel表单的名称
+        Sheet sheet = workBook.openSheet("Sheet1");
+        //定义Cell对象
+        Cell cellB4 = sheet.openCell("B4");
+        //给单元格赋值
+        cellB4.setValue("1月");
 
+        Cell cellC4 = sheet.openCell("C4");
+        cellC4.setValue("300");
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        Cell cellD4 = sheet.openCell("D4");
+        cellD4.setValue("270");
 
+        Cell cellE4 = sheet.openCell("E4");
+        cellE4.setValue("270");
 
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
+        Cell cellF4 = sheet.openCell("F4");
+        DecimalFormat df=(DecimalFormat) NumberFormat.getInstance();
+        cellF4.setValue(df.format( 270.00 / 300*100)+"%");
 
+        poCtrl.setWriter(workBook);
 
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
+        //隐藏工具栏
+        poCtrl.setCustomToolbar(false);
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelFill/test.doc", OpenModeType.docNormalEdit,"张三");
+        poCtrl.webOpen("/doc/ExcelFill/test.xls", OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        ModelAndView mv = new ModelAndView("ExcelFill/Word");
+        ModelAndView mv = new ModelAndView("ExcelFill/Excel");
         return mv;
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "ExcelFill\\"+fs.getFileName());
-        fs.close();
-    }
+
 
 }

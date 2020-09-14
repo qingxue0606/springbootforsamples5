@@ -2,6 +2,9 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
+import com.zhuozhengsoft.pageoffice.wordwriter.WdParagraphAlignment;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,28 +13,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value="/DataRegionText/")
 public class DataRegionTextController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public DataRegionTextController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        WordDocument doc = new WordDocument();
+        DataRegion d1 = doc.openDataRegion("d1");
+        d1.getFont().setColor(Color.BLUE);//设置数据区域文本字体颜色
+        d1.getFont().setName("华文彩云");//设置数据区域文本字体样式
+        d1.getFont().setSize(16);//设置数据区域文本字体大小
+        d1.getParagraphFormat().setAlignment(
+                WdParagraphAlignment.wdAlignParagraphCenter);//设置数据区域文本对齐方式
 
+        DataRegion d2 = doc.openDataRegion("d2");
+        d2.getFont().setColor(Color.orange);//设置数据区域文本字体颜色
+        d2.getFont().setName("黑体");//设置数据区域文本字体样式
+        d2.getFont().setSize(14);//设置数据区域文本字体大小
+        d2.getParagraphFormat().setAlignment(
+                WdParagraphAlignment.wdAlignParagraphLeft);//设置数据区域文本对齐方式
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        DataRegion d3 = doc.openDataRegion("d3");
+        d3.getFont().setColor(Color.magenta);//设置数据区域文本字体颜色
+        d3.getFont().setName("华文行楷");//设置数据区域文本字体样式
+        d3.getFont().setSize(12);//设置数据区域文本字体大小
+        d3.getParagraphFormat().setAlignment(
+                WdParagraphAlignment.wdAlignParagraphRight);//设置数据区域文本对齐方式
 
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        poCtrl.setWriter(doc);
 
         //打开Word文档
         poCtrl.webOpen("/doc/DataRegionText/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -39,13 +55,17 @@ public class DataRegionTextController {
         ModelAndView mv = new ModelAndView("DataRegionText/Word");
         return mv;
     }
+    @RequestMapping(value="Word2", method= RequestMethod.GET)
+    public ModelAndView showWord2(HttpServletRequest request, Map<String,Object> map){
+        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "DataRegionText\\"+fs.getFileName());
-        fs.close();
+        //打开Word文档
+        poCtrl.webOpen("/doc/DataRegionText/test.doc", OpenModeType.docNormalEdit,"张三");
+        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        ModelAndView mv = new ModelAndView("DataRegionText/Word2");
+        return mv;
     }
+
 
 }

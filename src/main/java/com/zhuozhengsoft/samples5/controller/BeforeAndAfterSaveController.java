@@ -23,11 +23,10 @@ public class BeforeAndAfterSaveController {
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
+        // 设置文件保存之前执行的事件
+        poCtrl.setJsFunction_BeforeDocumentSaved("BeforeDocumentSaved()");
+        // 设置文件保存之后执行的事件
+        poCtrl.setJsFunction_AfterDocumentSaved("AfterDocumentSaved()");
 
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法

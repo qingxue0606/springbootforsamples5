@@ -2,6 +2,8 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,22 +18,26 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/DataRegionFill/")
 public class DataRegionFillController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public DataRegionFillController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
+        WordDocument doc = new WordDocument();
+        //打开数据区域
+        DataRegion dataRegion1 = doc.openDataRegion("PO_userName");
+        //给数据区域赋值
+        dataRegion1.setValue("张三");
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        DataRegion dataRegion2 = doc.openDataRegion("PO_deptName");
+        dataRegion2.setValue("销售部");
 
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        poCtrl.setWriter(doc);
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
+        //隐藏工具栏
+        poCtrl.setCustomToolbar(false);
 
         //打开Word文档
         poCtrl.webOpen("/doc/DataRegionFill/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -41,11 +47,5 @@ public class DataRegionFillController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "DataRegionFill\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

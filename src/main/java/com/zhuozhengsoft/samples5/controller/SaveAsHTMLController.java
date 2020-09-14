@@ -24,9 +24,8 @@ public class SaveAsHTMLController {
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+//添加自定义按钮
+        poCtrl.addCustomToolButton("另存HTML","saveAsHTML",1);
 
 
         //设置保存页面
