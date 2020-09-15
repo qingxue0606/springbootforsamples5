@@ -23,12 +23,8 @@ public class SaveFirstPageAsImgController {
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
+        poCtrl.addCustomToolButton("保存", "Save()", 1);
+        poCtrl.addCustomToolButton("保存首页为图片", "SaveFirstAsImg()", 1);
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
@@ -44,7 +40,13 @@ public class SaveFirstPageAsImgController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response){
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SaveFirstPageAsImg\\"+fs.getFileName());
+        if (fs.getFileExtName().equals(".jpg")) {
+            fs.saveToFile(dir+ "SaveFirstPageAsImg\\images\\"+fs.getFileName());
+        } else {
+            fs.saveToFile(dir+ "SaveFirstPageAsImg\\"+fs.getFileName());
+        }
+        fs.setCustomSaveResult("ok");
+
         fs.close();
     }
 

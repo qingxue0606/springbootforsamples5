@@ -2,6 +2,7 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,23 +17,20 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordTextBox/")
 public class WordTextBoxController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordTextBoxController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
+        WordDocument doc = new WordDocument();
+        doc.openDataRegion("PO_company").setValue("北京幻想科技有限公司");
+        doc.openDataRegion("PO_logo").setValue("[image]/images/WordTextBox/logo.gif[/image]");
+        doc.openDataRegion("PO_dr1").setValue("左边的文本:xxxx");
+        poCtrl.setWriter(doc);
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
+        //隐藏工具栏
+        poCtrl.setCustomToolbar(false);
         //打开Word文档
         poCtrl.webOpen("/doc/WordTextBox/test.doc", OpenModeType.docNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
@@ -41,11 +39,6 @@ public class WordTextBoxController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordTextBox\\"+fs.getFileName());
-        fs.close();
-    }
+
 
 }

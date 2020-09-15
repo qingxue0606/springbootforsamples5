@@ -1,7 +1,6 @@
 package com.zhuozhengsoft.samples5.controller;
-import com.zhuozhengsoft.pageoffice.FileSaver;
-import com.zhuozhengsoft.pageoffice.OpenModeType;
-import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.*;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,22 +22,37 @@ public class DataRegionEditController {
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        WordDocument doc = new WordDocument();
+        doc.getTemplate().defineDataRegion("Name", "[ 姓名 ]");
+        doc.getTemplate().defineDataRegion("Address", "[ 地址 ]");
+        doc.getTemplate().defineDataRegion("Tel", "[ 电话 ]");
+        doc.getTemplate().defineDataRegion("Phone", "[ 手机 ]");
+        doc.getTemplate().defineDataRegion("Sex", "[ 性别 ]");
+        doc.getTemplate().defineDataRegion("Age", "[ 年龄 ]");
+        doc.getTemplate().defineDataRegion("Email", "[ 邮箱 ]");
+        doc.getTemplate().defineDataRegion("QQNo", "[ QQ号 ]");
+        doc.getTemplate().defineDataRegion("MSNNo", "[ MSN号 ]");
 
+        poCtrl.addCustomToolButton("保存", "Save()", 1);
+        poCtrl.addCustomToolButton("定义数据区域", "ShowDefineDataRegions()", 3);
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
+        poCtrl.setTheme(ThemeType.Office2007);
+        poCtrl.setBorderStyle(BorderStyleType.BorderThin);
+        poCtrl.setWriter(doc);
+        poCtrl.setSaveFilePage("save");
         //打开Word文档
         poCtrl.webOpen("/doc/DataRegionEdit/test.doc", OpenModeType.docNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DataRegionEdit/Word");
         return mv;
     }
+    @RequestMapping(value="DataRegionDlg", method= RequestMethod.GET)
+    public ModelAndView dataRegionDlg(HttpServletRequest request, Map<String,Object> map){
+
+        return new ModelAndView("DataRegionEdit/DataRegionDlg");
+    }
+
+
 
 
     @RequestMapping("save")
