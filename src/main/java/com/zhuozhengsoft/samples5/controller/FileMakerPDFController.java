@@ -16,14 +16,14 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/FileMakerPDF/")
 public class FileMakerPDFController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public FileMakerPDFController() throws FileNotFoundException {
     }
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
-        String url = dir + "FileMakerPDF\\";
+        String url = dir + "FileMakerPDF/";
         map.put("url", url);
         ModelAndView mv = new ModelAndView("FileMakerPDF/index");
         return mv;
@@ -53,7 +53,7 @@ public class FileMakerPDFController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "FileMakerPDF\\" + fs.getFileName());
+        fs.saveToFile(dir + "FileMakerPDF/" + fs.getFileName());
         fs.close();
     }
 

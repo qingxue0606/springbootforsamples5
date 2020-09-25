@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SaveReturnValue/")
 public class SaveReturnValueController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SaveReturnValueController() throws FileNotFoundException {
     }
@@ -49,7 +49,7 @@ public class SaveReturnValueController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SaveReturnValue\\" + fs.getFileName());
+        fs.saveToFile(dir + "SaveReturnValue/" + fs.getFileName());
         fs.setCustomSaveResult("ok");
         fs.close();
     }

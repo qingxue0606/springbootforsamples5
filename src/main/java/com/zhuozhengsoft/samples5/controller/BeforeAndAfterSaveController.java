@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/BeforeAndAfterSave/")
 public class BeforeAndAfterSaveController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public BeforeAndAfterSaveController() throws FileNotFoundException {
     }
@@ -46,7 +46,7 @@ public class BeforeAndAfterSaveController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "BeforeAndAfterSave\\" + fs.getFileName());
+        fs.saveToFile(dir + "BeforeAndAfterSave/" + fs.getFileName());
         fs.close();
     }
 

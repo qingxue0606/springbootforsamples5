@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/CommentOnly/")
 public class CommentOnlyController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public CommentOnlyController() throws FileNotFoundException {
     }
@@ -46,7 +46,7 @@ public class CommentOnlyController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "CommentOnly\\" + fs.getFileName());
+        fs.saveToFile(dir + "CommentOnly/" + fs.getFileName());
         fs.close();
     }
 

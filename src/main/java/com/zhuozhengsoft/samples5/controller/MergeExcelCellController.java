@@ -19,10 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/MergeExcelCell/")
 public class MergeExcelCellController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
 
-    public MergeExcelCellController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Excel", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -64,11 +61,5 @@ public class MergeExcelCellController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "MergeExcelCell\\" + fs.getFileName());
-        fs.close();
-    }
 
 }

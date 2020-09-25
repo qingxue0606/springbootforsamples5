@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/POBrowser/")
 public class POBrowserController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public POBrowserController() throws FileNotFoundException {
     }
@@ -45,7 +45,7 @@ public class POBrowserController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "POBrowser\\" + fs.getFileName());
+        fs.saveToFile(dir + "POBrowser/" + fs.getFileName());
         fs.close();
     }
 

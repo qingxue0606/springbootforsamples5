@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DisableCopyOut/")
 public class DisableCopyOutController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DisableCopyOutController() throws FileNotFoundException {
     }
@@ -51,7 +51,7 @@ public class DisableCopyOutController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "DisableCopyOut\\" + fs.getFileName());
+        fs.saveToFile(dir + "DisableCopyOut/" + fs.getFileName());
         fs.close();
     }
 

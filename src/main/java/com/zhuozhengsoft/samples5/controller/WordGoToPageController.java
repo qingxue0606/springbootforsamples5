@@ -17,10 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/WordGoToPage/")
 public class WordGoToPageController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
 
-    public WordGoToPageController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -35,11 +32,6 @@ public class WordGoToPageController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "WordGoToPage\\" + fs.getFileName());
-        fs.close();
-    }
+
 
 }

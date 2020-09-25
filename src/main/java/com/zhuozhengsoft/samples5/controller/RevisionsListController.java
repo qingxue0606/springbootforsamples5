@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/RevisionsList/")
 public class RevisionsListController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public RevisionsListController() throws FileNotFoundException {
     }
@@ -44,7 +44,7 @@ public class RevisionsListController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "RevisionsList\\" + fs.getFileName());
+        fs.saveToFile(dir + "RevisionsList/" + fs.getFileName());
         fs.close();
     }
 

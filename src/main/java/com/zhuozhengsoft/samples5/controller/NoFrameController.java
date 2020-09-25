@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/NoFrame/")
 public class NoFrameController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public NoFrameController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class NoFrameController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "NoFrame\\" + fs.getFileName());
+        fs.saveToFile(dir + "NoFrame/" + fs.getFileName());
         fs.close();
     }
 

@@ -18,10 +18,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/PDFSearch/")
 public class PDFSearchController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
-
-    public PDFSearchController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "PDF", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {

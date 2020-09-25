@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/HtmlWord/")
 public class HtmlWordController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public HtmlWordController() throws FileNotFoundException {
     }
@@ -60,7 +60,7 @@ public class HtmlWordController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "HtmlWord\\" + fs.getFileName());
+        fs.saveToFile(dir + "HtmlWord/" + fs.getFileName());
         fs.close();
     }
 

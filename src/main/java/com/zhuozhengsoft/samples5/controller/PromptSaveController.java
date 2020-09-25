@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/PromptSave/")
 public class PromptSaveController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public PromptSaveController() throws FileNotFoundException {
     }
@@ -42,7 +42,7 @@ public class PromptSaveController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "PromptSave\\" + fs.getFileName());
+        fs.saveToFile(dir + "PromptSave/" + fs.getFileName());
         fs.close();
     }
 

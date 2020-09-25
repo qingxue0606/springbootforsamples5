@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping(value = "/SimpleWord/")
 public class SimpleWordController {
 
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SimpleWordController() throws FileNotFoundException {
     }
@@ -63,7 +63,7 @@ public class SimpleWordController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SimpleWord\\" + fs.getFileName());
+        fs.saveToFile(dir + "SimpleWord/" + fs.getFileName());
         fs.close();
     }
 

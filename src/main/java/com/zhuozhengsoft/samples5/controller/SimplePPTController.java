@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping(value = "/SimplePPT/")
 public class SimplePPTController {
 
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SimplePPTController() throws FileNotFoundException {
     }
@@ -44,7 +44,7 @@ public class SimplePPTController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SimplePPT\\" + fs.getFileName());
+        fs.saveToFile(dir + "SimplePPT/" + fs.getFileName());
         fs.close();
     }
 

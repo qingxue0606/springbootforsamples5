@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/ClickDataRegion/")
 public class ClickDataRegionController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public ClickDataRegionController() throws FileNotFoundException {
     }
@@ -60,7 +60,7 @@ public class ClickDataRegionController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "ClickDataRegion\\" + fs.getFileName());
+        fs.saveToFile(dir + "ClickDataRegion/" + fs.getFileName());
         fs.close();
     }
 

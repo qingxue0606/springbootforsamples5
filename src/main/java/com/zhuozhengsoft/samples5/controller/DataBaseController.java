@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DataBase/")
 public class DataBaseController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DataBaseController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class DataBaseController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "DataBase\\" + fs.getFileName());
+        fs.saveToFile(dir + "DataBase/" + fs.getFileName());
         fs.close();
     }
 

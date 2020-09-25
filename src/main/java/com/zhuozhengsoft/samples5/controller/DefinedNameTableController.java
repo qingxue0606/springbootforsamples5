@@ -25,7 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DefinedNameTable/")
 public class DefinedNameTableController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DefinedNameTableController() throws FileNotFoundException {
     }

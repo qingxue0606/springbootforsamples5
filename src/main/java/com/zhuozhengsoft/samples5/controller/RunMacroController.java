@@ -17,10 +17,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/RunMacro/")
 public class RunMacroController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
-
-    public RunMacroController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -39,12 +35,5 @@ public class RunMacroController {
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "RunMacro\\" + fs.getFileName());
-        fs.close();
-    }
 
 }

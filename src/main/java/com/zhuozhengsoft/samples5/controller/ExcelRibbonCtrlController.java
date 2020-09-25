@@ -17,10 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/ExcelRibbonCtrl/")
 public class ExcelRibbonCtrlController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
 
-    public ExcelRibbonCtrlController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Excel", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -45,12 +42,5 @@ public class ExcelRibbonCtrlController {
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "ExcelRibbonCtrl\\" + fs.getFileName());
-        fs.close();
-    }
 
 }

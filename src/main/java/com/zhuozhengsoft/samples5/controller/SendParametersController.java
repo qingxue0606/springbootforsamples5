@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SendParameters/")
 public class SendParametersController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SendParametersController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class SendParametersController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SendParameters\\" + fs.getFileName());
+        fs.saveToFile(dir + "SendParameters/" + fs.getFileName());
         fs.close();
     }
 

@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/OpenWindow/")
 public class OpenWindowController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public OpenWindowController() throws FileNotFoundException {
     }
@@ -45,7 +45,7 @@ public class OpenWindowController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "OpenWindow\\" + fs.getFileName());
+        fs.saveToFile(dir + "OpenWindow/" + fs.getFileName());
         fs.close();
     }
 

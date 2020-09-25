@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SetXlsTableByUser/")
 public class SetXlsTableByUserController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SetXlsTableByUserController() throws FileNotFoundException {
     }
@@ -82,7 +82,7 @@ public class SetXlsTableByUserController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SetXlsTableByUser\\" + fs.getFileName());
+        fs.saveToFile(dir + "SetXlsTableByUser/" + fs.getFileName());
         fs.close();
     }
 

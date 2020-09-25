@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/WordHandDraw/")
 public class WordHandDrawController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public WordHandDrawController() throws FileNotFoundException {
     }
@@ -51,7 +51,7 @@ public class WordHandDrawController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "WordHandDraw\\" + fs.getFileName());
+        fs.saveToFile(dir + "WordHandDraw/" + fs.getFileName());
         fs.close();
     }
 

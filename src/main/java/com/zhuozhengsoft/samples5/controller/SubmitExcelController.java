@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SubmitExcel/")
 public class SubmitExcelController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SubmitExcelController() throws FileNotFoundException {
     }

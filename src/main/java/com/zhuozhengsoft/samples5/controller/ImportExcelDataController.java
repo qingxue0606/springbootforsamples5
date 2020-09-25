@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/ImportExcelData/")
 public class ImportExcelDataController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public ImportExcelDataController() throws FileNotFoundException {
     }

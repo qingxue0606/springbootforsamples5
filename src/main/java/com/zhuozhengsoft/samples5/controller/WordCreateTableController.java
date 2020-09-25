@@ -18,10 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/WordCreateTable/")
 public class WordCreateTableController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
 
-    public WordCreateTableController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -60,14 +57,6 @@ public class WordCreateTableController {
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("WordCreateTable/Word");
         return mv;
-    }
-
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "WordCreateTable\\" + fs.getFileName());
-        fs.close();
     }
 
 }

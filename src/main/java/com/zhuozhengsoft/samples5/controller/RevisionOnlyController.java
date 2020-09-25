@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/RevisionOnly/")
 public class RevisionOnlyController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public RevisionOnlyController() throws FileNotFoundException {
     }
@@ -46,7 +46,7 @@ public class RevisionOnlyController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "RevisionOnly\\" + fs.getFileName());
+        fs.saveToFile(dir + "RevisionOnly/" + fs.getFileName());
         fs.close();
     }
 

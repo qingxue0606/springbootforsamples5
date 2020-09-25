@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/CreateWord/")
 public class CreateWordController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public CreateWordController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class CreateWordController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "CreateWord\\" + fs.getFileName());
+        fs.saveToFile(dir + "CreateWord/" + fs.getFileName());
         fs.close();
     }
 

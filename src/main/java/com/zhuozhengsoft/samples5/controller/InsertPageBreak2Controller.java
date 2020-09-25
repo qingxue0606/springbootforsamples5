@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/InsertPageBreak2/")
 public class InsertPageBreak2Controller {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public InsertPageBreak2Controller() throws FileNotFoundException {
     }
@@ -52,7 +52,7 @@ public class InsertPageBreak2Controller {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "InsertPageBreak2\\" + fs.getFileName());
+        fs.saveToFile(dir + "InsertPageBreak2/" + fs.getFileName());
         fs.close();
     }
 

@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/FileMaker/")
 public class FileMakerController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public FileMakerController() throws FileNotFoundException {
     }
@@ -24,7 +24,7 @@ public class FileMakerController {
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
 
-        map.put("url", dir + "FileMaker\\");
+        map.put("url", dir + "FileMaker/");
         ModelAndView mv = new ModelAndView("FileMaker/index");
         return mv;
     }
@@ -63,7 +63,7 @@ public class FileMakerController {
         String err = "";
         if (id != null && id.length() > 0) {
             String fileName = "maker" + id + fs.getFileExtName();
-            fs.saveToFile(dir + "FileMaker\\" + fileName);
+            fs.saveToFile(dir + "FileMaker/" + fileName);
         } else {
             throw new RuntimeException("id 不能为空");
         }

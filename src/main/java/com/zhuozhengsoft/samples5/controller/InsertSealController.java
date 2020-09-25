@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/InsertSeal/")
 public class InsertSealController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public InsertSealController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class InsertSealController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "InsertSeal\\" + fs.getFileName());
+        fs.saveToFile(dir + "InsertSeal/" + fs.getFileName());
         fs.close();
     }
 

@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SaveAsPDF/")
 public class SaveAsPDFController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SaveAsPDFController() throws FileNotFoundException {
     }
@@ -80,7 +80,7 @@ public class SaveAsPDFController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SaveAsPDF\\" + fs.getFileName());
+        fs.saveToFile(dir + "SaveAsPDF/" + fs.getFileName());
         fs.close();
     }
 

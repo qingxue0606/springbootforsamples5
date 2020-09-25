@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/ExtractImage/")
 public class ExtractImageController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public ExtractImageController() throws FileNotFoundException {
     }
@@ -50,8 +50,8 @@ public class ExtractImageController {
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request, response);
         com.zhuozhengsoft.pageoffice.wordreader.DataRegion dr = doc.openDataRegion("PO_image");
         //将提取的图片保存到服务器上，图片的名称为:a.jpg
-        dr.openShape(1).saveAsJPG(dir + "ExtractImage\\" + "a.jpg");
-        doc.setCustomSaveResult("保存成功,文件保存到：" + dir + "ExtractImage\\" + "\\a.jpg");
+        dr.openShape(1).saveAsJPG(dir + "ExtractImage/" + "a.jpg");
+        doc.setCustomSaveResult("保存成功,文件保存到：" + dir + "ExtractImage/" + "/a.jpg");
         doc.close();
 
     }

@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/PrintFiles/")
 public class PrintFilesController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public PrintFilesController() throws FileNotFoundException {
     }
@@ -24,7 +24,7 @@ public class PrintFilesController {
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
 
-        map.put("url", dir + "PrintFiles\\");
+        map.put("url", dir + "PrintFiles/");
         ModelAndView mv = new ModelAndView("PrintFiles/index");
         return mv;
     }
@@ -56,8 +56,8 @@ public class PrintFilesController {
         String id = request.getParameter("id");
         String err = "";
         if (id != null && id.length() > 0) {
-            String fileName = "\\maker" + id + fs.getFileExtName();
-            fs.saveToFile(dir + "PrintFiles\\" + fileName);
+            String fileName = "/maker" + id + fs.getFileExtName();
+            fs.saveToFile(dir + "PrintFiles/" + fileName);
         } else {
             throw new RuntimeException("id不正常");
         }

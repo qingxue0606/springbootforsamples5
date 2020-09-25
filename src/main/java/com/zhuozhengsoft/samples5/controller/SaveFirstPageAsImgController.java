@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SaveFirstPageAsImg/")
 public class SaveFirstPageAsImgController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SaveFirstPageAsImgController() throws FileNotFoundException {
     }
@@ -44,9 +44,9 @@ public class SaveFirstPageAsImgController {
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
         if (fs.getFileExtName().equals(".jpg")) {
-            fs.saveToFile(dir + "SaveFirstPageAsImg\\images\\" + fs.getFileName());
+            fs.saveToFile(dir + "SaveFirstPageAsImg/images/" + fs.getFileName());
         } else {
-            fs.saveToFile(dir + "SaveFirstPageAsImg\\" + fs.getFileName());
+            fs.saveToFile(dir + "SaveFirstPageAsImg/" + fs.getFileName());
         }
         fs.setCustomSaveResult("ok");
 

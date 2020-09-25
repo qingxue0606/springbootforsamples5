@@ -43,7 +43,7 @@ public class DemoController {
     public ServletRegistrationBean servletRegistrationBean() throws FileNotFoundException {
         com.zhuozhengsoft.pageoffice.poserver.Server poserver = new com.zhuozhengsoft.pageoffice.poserver.Server();
 
-        String poSysPath = ResourceUtils.getURL("classpath:").getPath() + "static\\lic";
+        String poSysPath = ResourceUtils.getURL("classpath:").getPath() + "static/lic";
 
         poserver.setSysPath(poSysPath);//设置PageOffice注册成功后,license.lic文件存放的目录
         ServletRegistrationBean srb = new ServletRegistrationBean(poserver);
@@ -65,7 +65,7 @@ public class DemoController {
     public ServletRegistrationBean servletRegistrationBean2() throws FileNotFoundException {
         com.zhuozhengsoft.pageoffice.poserver.AdminSeal adminSeal = new com.zhuozhengsoft.pageoffice.poserver.AdminSeal();
         adminSeal.setAdminPassword(poPassWord);//设置印章管理员admin的登录密码
-        String poSysPath = ResourceUtils.getURL("classpath:").getPath() + "static\\lic";
+        String poSysPath = ResourceUtils.getURL("classpath:").getPath() + "static/lic";
         adminSeal.setSysPath(poSysPath);//设置印章数据库文件poseal.db存放的目录
         ServletRegistrationBean srb = new ServletRegistrationBean(adminSeal);
         srb.addUrlMappings("/adminseal.zz");

@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SetDrByUserWord2/")
 public class SetDrByUserWord2Controller {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SetDrByUserWord2Controller() throws FileNotFoundException {
     }
@@ -95,7 +95,7 @@ public class SetDrByUserWord2Controller {
         }
         doc.close();
 
-        filePath = dir + "SetDrByUserWord2\\" + filePath;
+        filePath = dir + "SetDrByUserWord2/" + filePath;
         FileOutputStream outputStream = new FileOutputStream(filePath);
         outputStream.write(bytes);
         outputStream.flush();

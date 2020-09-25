@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SplitWord/")
 public class SplitWordController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SplitWordController() throws FileNotFoundException {
     }
@@ -55,7 +55,7 @@ public class SplitWordController {
 
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String filePath = dir + "SplitWord\\";
+        String filePath = dir + "SplitWord/";
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request, response);
         byte[] bWord;
 

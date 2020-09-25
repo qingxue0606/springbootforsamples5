@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/ConcurrencyCtrl/")
 public class ConcurrencyCtrlController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public ConcurrencyCtrlController() throws FileNotFoundException {
     }
@@ -59,7 +59,7 @@ public class ConcurrencyCtrlController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "ConcurrencyCtrl\\" + fs.getFileName());
+        fs.saveToFile(dir + "ConcurrencyCtrl/" + fs.getFileName());
         fs.close();
     }
 

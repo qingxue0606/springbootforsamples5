@@ -21,7 +21,7 @@ import static java.lang.System.out;
 @RestController
 @RequestMapping(value = "/DataRegionTable/")
 public class DataRegionTableController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DataRegionTableController() throws FileNotFoundException {
     }

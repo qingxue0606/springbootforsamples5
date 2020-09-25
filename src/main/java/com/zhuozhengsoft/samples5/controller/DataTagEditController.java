@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DataTagEdit/")
 public class DataTagEditController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DataTagEditController() throws FileNotFoundException {
     }
@@ -59,7 +59,7 @@ public class DataTagEditController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "DataTagEdit\\" + fs.getFileName());
+        fs.saveToFile(dir + "DataTagEdit/" + fs.getFileName());
         fs.close();
     }
 

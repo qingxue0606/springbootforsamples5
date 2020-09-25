@@ -19,7 +19,7 @@ import static org.springframework.util.ResourceUtils.*;
 @RestController
 @RequestMapping(value = "/SimpleExcel/")
 public class SimpleExcelController {
-    private String dir = getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = getURL("classpath:").getPath() + "static/doc/";
 
     public SimpleExcelController() throws FileNotFoundException {
     }
@@ -44,7 +44,7 @@ public class SimpleExcelController {
     @RequestMapping("save")
     public void saveFile(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SimpleExcel\\" + fs.getFileName());
+        fs.saveToFile(dir + "SimpleExcel/" + fs.getFileName());
         fs.close();
     }
 }

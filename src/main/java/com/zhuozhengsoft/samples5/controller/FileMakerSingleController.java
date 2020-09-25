@@ -16,14 +16,14 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/FileMakerSingle/")
 public class FileMakerSingleController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public FileMakerSingleController() throws FileNotFoundException {
     }
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
-        String url = dir + "FileMakerSingle\\";
+        String url = dir + "FileMakerSingle/";
         map.put("url", url);
         ModelAndView mv = new ModelAndView("FileMakerSingle/index");
         return mv;
@@ -53,7 +53,7 @@ public class FileMakerSingleController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "FileMakerSingle\\" + fs.getFileName());
+        fs.saveToFile(dir + "FileMakerSingle/" + fs.getFileName());
         fs.close();
     }
 

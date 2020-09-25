@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/HighDPI/")
 public class HighDPIController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public HighDPIController() throws FileNotFoundException {
     }
@@ -47,7 +47,7 @@ public class HighDPIController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "HighDPI\\" + fs.getFileName());
+        fs.saveToFile(dir + "HighDPI/" + fs.getFileName());
         fs.close();
     }
 

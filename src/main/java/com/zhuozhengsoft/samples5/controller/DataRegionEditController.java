@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DataRegionEdit/")
 public class DataRegionEditController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DataRegionEditController() throws FileNotFoundException {
     }
@@ -60,7 +60,7 @@ public class DataRegionEditController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "DataRegionEdit\\" + fs.getFileName());
+        fs.saveToFile(dir + "DataRegionEdit/" + fs.getFileName());
         fs.close();
     }
 

@@ -20,7 +20,7 @@ import static java.lang.System.out;
 @RestController
 @RequestMapping(value = "/ImportWordData/")
 public class ImportWordDataController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public ImportWordDataController() throws FileNotFoundException {
     }

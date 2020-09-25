@@ -17,10 +17,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/WordRibbonCtrl/")
 public class WordRibbonCtrlController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
-
-    public WordRibbonCtrlController() throws FileNotFoundException {
-    }
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
@@ -49,11 +45,5 @@ public class WordRibbonCtrlController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response) {
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "WordRibbonCtrl\\" + fs.getFileName());
-        fs.close();
-    }
 
 }

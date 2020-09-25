@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/SaveAsHTML/")
 public class SaveAsHTMLController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public SaveAsHTMLController() throws FileNotFoundException {
     }
@@ -46,7 +46,7 @@ public class SaveAsHTMLController {
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "SaveAsHTML\\" + fs.getFileName());
+        fs.saveToFile(dir + "SaveAsHTML/" + fs.getFileName());
         fs.close();
     }
 
