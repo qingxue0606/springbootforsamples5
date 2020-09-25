@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.*;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +13,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SaveAsPDF/")
+@RequestMapping(value = "/SaveAsPDF/")
 public class SaveAsPDFController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SaveAsPDFController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         //添加自定义按钮
         poCtrl.addCustomToolButton("保存", "Save()", 1);
@@ -31,16 +34,16 @@ public class SaveAsPDFController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SaveAsPDF/template.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SaveAsPDF/template.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SaveAsPDF/Word");
         return mv;
     }
 
-    @RequestMapping(value="pdf", method= RequestMethod.GET)
-    public ModelAndView showPdf(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "pdf", method = RequestMethod.GET)
+    public ModelAndView showPdf(HttpServletRequest request, Map<String, Object> map) {
         PDFCtrl pdfCtrl = new PDFCtrl(request);
-        pdfCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //此行必须
+        pdfCtrl.setServerPage(request.getContextPath() + "/poserver.zz"); //此行必须
         pdfCtrl.setTheme(ThemeType.CustomStyle);//设置主题样式
 
         //添加自定义按钮
@@ -66,19 +69,18 @@ public class SaveAsPDFController {
         pdfCtrl.setAllowCopy(false);
         String fileName = request.getParameter("fileName");//定义文件名称
 
-        pdfCtrl.webOpen("/doc/SaveAsPDF/"+fileName);
+        pdfCtrl.webOpen("/doc/SaveAsPDF/" + fileName);
 
-        map.put("pageoffice",pdfCtrl.getHtmlCode("PDFCtrl1"));
+        map.put("pageoffice", pdfCtrl.getHtmlCode("PDFCtrl1"));
         ModelAndView mv = new ModelAndView("SaveAsPDF/pdf");
         return mv;
     }
 
 
-
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SaveAsPDF\\"+fs.getFileName());
+        fs.saveToFile(dir + "SaveAsPDF\\" + fs.getFileName());
         fs.close();
     }
 

@@ -14,17 +14,17 @@
         </div>
         <div class="errTxtArea" style="height: 88%; text-align: left">
             <b class="txt_title">
-                <div style=" color:#FF0000;" >
+                <div style=" color:#FF0000;">
                     提交的信息如下：
                 </div>
-                <div   th:utext="${content}">
+                <div th:utext="${content}">
 
                 </div>
             </b>
         </div>
         <div class="errBtmArea" style="text-align: center;">
             <input type="button" class="btnFn" value=" 关闭 "
-                   onclick="window.opener=null;window.open('','_self');window.close();" />
+                   onclick="window.opener=null;window.open('','_self');window.close();"/>
         </div>
     </div>
 </form>

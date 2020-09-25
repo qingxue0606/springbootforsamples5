@@ -18,18 +18,22 @@
     function SaveDocument() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+
     function ShowFile1View() {
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.ShowRevisionsAndComments = false;
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.RevisionsView = 1;
     }
+
     function ShowFile2View() {
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.ShowRevisionsAndComments = false;
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.RevisionsView = 0;
     }
+
     function ShowCompareView() {
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.ShowRevisionsAndComments = true;
         document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.View.RevisionsView = 0;
     }
+
     function SetFullScreen() {
         document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
     }

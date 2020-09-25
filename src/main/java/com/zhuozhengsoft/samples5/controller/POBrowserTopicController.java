@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,29 +17,28 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/POBrowserTopic/")
+@RequestMapping(value = "/POBrowserTopic/")
 public class POBrowserTopicController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public POBrowserTopicController() throws FileNotFoundException {
     }
 
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showIndex(HttpServletRequest request, Map<String,Object> map, HttpSession session){
-        String userName="张三";
-        session.setAttribute("userName",userName);
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showIndex(HttpServletRequest request, Map<String, Object> map, HttpSession session) {
+        String userName = "张三";
+        session.setAttribute("userName", userName);
         ModelAndView mv = new ModelAndView("POBrowserTopic/index");
         return mv;
     }
 
 
-
-
-    @RequestMapping(value="Word1", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word1", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("保存", "Save", 1);
 
         poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
         //设置保存页面
@@ -46,54 +46,55 @@ public class POBrowserTopicController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("POBrowserTopic/Word1");
         return mv;
     }
 
 
-    @RequestMapping(value="Word2", method= RequestMethod.GET)
-    public ModelAndView showWord2(HttpServletRequest request, Map<String,Object> map,HttpSession session){
+    @RequestMapping(value = "Word2", method = RequestMethod.GET)
+    public ModelAndView showWord2(HttpServletRequest request, Map<String, Object> map, HttpSession session) {
 
         //获取index.jsp页面传递过来参数的值
-        String userName=(String)session.getAttribute("userName");
+        String userName = (String) session.getAttribute("userName");
         //获取index.jsp用？传递过来的id的值
-        String  id=request.getParameter("id");
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        String id = request.getParameter("id");
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("保存", "Save", 1);
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("userName",userName);
-        map.put("id",id);
+        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("userName", userName);
+        map.put("id", id);
 
         ModelAndView mv = new ModelAndView("POBrowserTopic/Word2");
         return mv;
     }
-    @RequestMapping(value="Word3", method= RequestMethod.GET)
-    public ModelAndView showWord3(HttpServletRequest request, Map<String,Object> map,HttpSession session){
+
+    @RequestMapping(value = "Word3", method = RequestMethod.GET)
+    public ModelAndView showWord3(HttpServletRequest request, Map<String, Object> map, HttpSession session) {
 
 
-        String txt=(String)session.getAttribute("txt");
+        String txt = (String) session.getAttribute("txt");
 
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存并关闭","Save",1);
+        poCtrl.addCustomToolButton("保存并关闭", "Save", 1);
 
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("txt",txt);
+        poCtrl.webOpen("/doc/POBrowserTopic/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("txt", txt);
 
         ModelAndView mv = new ModelAndView("POBrowserTopic/Word3");
         return mv;
@@ -102,16 +103,16 @@ public class POBrowserTopicController {
 
     @RequestMapping("Result2")
     @ResponseBody
-    public String Result2(HttpServletRequest request, HttpServletResponse response,HttpSession session){
-        String  paramValue=request.getParameter("param");
-        session.setAttribute("txt",paramValue);
-        return  "ok";
+    public String Result2(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        String paramValue = request.getParameter("param");
+        session.setAttribute("txt", paramValue);
+        return "ok";
     }
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "POBrowserTopic\\"+fs.getFileName());
+        fs.saveToFile(dir + "POBrowserTopic\\" + fs.getFileName());
         fs.close();
     }
 

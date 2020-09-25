@@ -4,17 +4,18 @@
 <head>
     <title>最简单的打开保存Excel文件</title>
 </head>
-<body style="overflow:hidden" >
+<body style="overflow:hidden">
 <script type="text/javascript">
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+
     function Close() {
         window.external.close();
     }
 </script>
 
-<div  style="height:750px;width:auto;" th:utext="${pageoffice}" >
+<div style="height:750px;width:auto;" th:utext="${pageoffice}">
 
 </div>
 </body>

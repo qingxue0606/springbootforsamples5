@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -19,13 +20,13 @@ import java.util.Date;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/WordDataTag/")
+@RequestMapping(value = "/WordDataTag/")
 public class WordDataTagController {
 
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //定义WordDocument对象
         WordDocument doc = new WordDocument();
 
@@ -45,13 +46,11 @@ public class WordDataTagController {
 
         poCtrl.setWriter(doc);
         //打开Word文档
-        poCtrl.webOpen("/doc/WordDataTag/test2.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/WordDataTag/test2.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("WordDataTag/Word");
         return mv;
     }
-
-
 
 
 }

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/pageoffice.js" id="po_js_main"></script>
     <script type="text/javascript">
         var count = 0;
+
         function updateCount(value) {
             count = count + value;
             document.getElementById("Text1").value = count;
@@ -23,8 +24,8 @@
 </head>
 
 <body>
-<a href="javascript:POBrowser.openWindowModeless('Word?id=123', 'width=1200px;height=800px;scroll=no;');" >POBrowser方式打开Word文档</a><br><br><br>
-<div >Count=<input id="Text1" type="text" value="0" /></div>
+<a href="javascript:POBrowser.openWindowModeless('Word?id=123', 'width=1200px;height=800px;scroll=no;');">POBrowser方式打开Word文档</a><br><br><br>
+<div>Count=<input id="Text1" type="text" value="0"/></div>
 
 </body>
 </html>

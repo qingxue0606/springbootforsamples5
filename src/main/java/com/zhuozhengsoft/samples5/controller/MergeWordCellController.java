@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -19,13 +20,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/MergeWordCell/")
+@RequestMapping(value = "/MergeWordCell/")
 public class MergeWordCellController {
 
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument doc = new WordDocument();
         DataRegion dataReg = doc.openDataRegion("PO_table");
         Table table = dataReg.openTable(1);
@@ -44,12 +45,11 @@ public class MergeWordCellController {
 
         poCtrl.setCustomToolbar(false);
         //打开Word文档
-        poCtrl.webOpen("/doc/MergeWordCell/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/MergeWordCell/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("MergeWordCell/Word");
         return mv;
     }
-
 
 
 }

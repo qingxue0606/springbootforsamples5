@@ -23,6 +23,7 @@
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+
     function AfterDocumentOpened() {
 
         $("#btn1").removeAttr("disabled");
@@ -31,9 +32,9 @@
 
     function OpenDocument(strUrl) {
         //使打开按钮变灰
-        $('#btn1').attr('disabled','true');
+        $('#btn1').attr('disabled', 'true');
         //使用post请求打开文档的action
-        $.post(strUrl,{ param2: "456"},function(data){
+        $.post(strUrl, {param2: "456"}, function (data) {
             $("#divDocView").html(data);
         });
     }

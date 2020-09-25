@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.*;
 import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
@@ -13,22 +14,25 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/FileMakerPDF/")
+@RequestMapping(value = "/FileMakerPDF/")
 public class FileMakerPDFController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public FileMakerPDFController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
-        String url=dir+"FileMakerPDF\\";
-        map.put("url",url);
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
+        String url = dir + "FileMakerPDF\\";
+        map.put("url", url);
         ModelAndView mv = new ModelAndView("FileMakerPDF/index");
         return mv;
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
         FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
-        fmCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+        fmCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
         WordDocument doc = new WordDocument();
         //禁用右击事件
         doc.setDisableWindowRightClick(true);
@@ -39,7 +43,7 @@ public class FileMakerPDFController {
         fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
 
         fmCtrl.fillDocumentAsPDF("/doc/FileMakerPDF/template.doc", DocumentOpenType.Word, "a.pdf");
-        map.put("pageoffice",fmCtrl.getHtmlCode("FileMakerCtrl1"));
+        map.put("pageoffice", fmCtrl.getHtmlCode("FileMakerCtrl1"));
         ModelAndView mv = new ModelAndView("FileMakerPDF/Word");
         System.out.println();
         return mv;
@@ -47,9 +51,9 @@ public class FileMakerPDFController {
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "FileMakerPDF\\"+fs.getFileName());
+        fs.saveToFile(dir + "FileMakerPDF\\" + fs.getFileName());
         fs.close();
     }
 

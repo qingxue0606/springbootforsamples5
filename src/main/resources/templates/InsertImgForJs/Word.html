@@ -8,7 +8,6 @@
 <body>
 
 
-
 <script type="text/javascript">
     function AfterDocumentOpened() {
         /**
@@ -28,7 +27,7 @@
         var bkName = "PO_logo";
         //将光标定位到书签所在的位置
         var mac = "Function myfunc()" + " \r\n"
-            + "  ActiveDocument.Bookmarks(\""+ bkName +"\").Select " + " \r\n"
+            + "  ActiveDocument.Bookmarks(\"" + bkName + "\").Select " + " \r\n"
             + "End Function " + " \r\n";
         document.getElementById("PageOfficeCtrl1").RunMacro("myfunc", mac);
     }

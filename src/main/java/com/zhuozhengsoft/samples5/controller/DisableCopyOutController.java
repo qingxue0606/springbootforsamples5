@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -14,23 +15,25 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/DisableCopyOut/")
+@RequestMapping(value = "/DisableCopyOut/")
 public class DisableCopyOutController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public DisableCopyOutController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-        poCtrl.addCustomToolButton("打印设置","PrintSet",0);
-        poCtrl.addCustomToolButton("打印","PrintFile",6);
+        poCtrl.addCustomToolButton("保存", "Save", 1);
+        poCtrl.addCustomToolButton("打印设置", "PrintSet", 0);
+        poCtrl.addCustomToolButton("打印", "PrintFile", 6);
         poCtrl.addCustomToolButton("全屏/还原", "IsFullScreen", 4);
         poCtrl.addCustomToolButton("-", "", 0);
-        poCtrl.addCustomToolButton("关闭","Close",21);
+        poCtrl.addCustomToolButton("关闭", "Close", 21);
 
         //** 关键代码 禁止拷贝文档内容到外部 **
         poCtrl.setDisableCopyOnly(true);
@@ -38,17 +41,17 @@ public class DisableCopyOutController {
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/DisableCopyOut/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/DisableCopyOut/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DisableCopyOut/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "DisableCopyOut\\"+fs.getFileName());
+        fs.saveToFile(dir + "DisableCopyOut\\" + fs.getFileName());
         fs.close();
     }
 

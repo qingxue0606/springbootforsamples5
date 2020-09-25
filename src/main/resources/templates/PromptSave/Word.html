@@ -9,19 +9,19 @@
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+
     function CloseFile() {
         window.external.close();
     }
 
-    function BeforeBrowserClosed(){
-        if (document.getElementById("PageOfficeCtrl1").IsDirty){
-            if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
-            {
-                return  true;
+    function BeforeBrowserClosed() {
+        if (document.getElementById("PageOfficeCtrl1").IsDirty) {
+            if (confirm("提示：文档已被修改，是否继续关闭放弃保存 ？")) {
+                return true;
 
-            }else{
+            } else {
 
-                return  false;
+                return false;
             }
 
         }

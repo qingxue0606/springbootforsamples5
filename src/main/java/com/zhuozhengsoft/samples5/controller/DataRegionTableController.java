@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -18,15 +19,17 @@ import java.util.Map;
 import static java.lang.System.out;
 
 @RestController
-@RequestMapping(value="/DataRegionTable/")
+@RequestMapping(value = "/DataRegionTable/")
 public class DataRegionTableController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public DataRegionTableController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         WordDocument doc = new WordDocument();
         //打开数据区域
@@ -60,28 +63,26 @@ public class DataRegionTableController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/DataRegionTable/test.doc", OpenModeType.docSubmitForm,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/DataRegionTable/test.doc", OpenModeType.docSubmitForm, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DataRegionTable/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request,response);
+    public void save(HttpServletRequest request, HttpServletResponse response) {
+        com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request, response);
         com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataReg = doc.openDataRegion("PO_table");
         com.zhuozhengsoft.pageoffice.wordreader.Table table = dataReg.openTable(1);
 
         //输出提交的table中的数据
         out.print("表格中的各个单元的格数据为：<br/><br/>");
         StringBuilder dataStr = new StringBuilder();
-        for (int i = 1; i <= table.getRowsCount(); i++)
-        {
+        for (int i = 1; i <= table.getRowsCount(); i++) {
             dataStr.append("<div style='width:220px;'>");
-            for (int j = 1; j <= table.getColumnsCount(); j++)
-            {
-                dataStr.append("<div style='float:left;width:70px;border:1px solid red;'>"+table.openCellRC(i,j).getValue()+"</div>");
+            for (int j = 1; j <= table.getColumnsCount(); j++) {
+                dataStr.append("<div style='float:left;width:70px;border:1px solid red;'>" + table.openCellRC(i, j).getValue() + "</div>");
             }
             dataStr.append("</div>");
         }

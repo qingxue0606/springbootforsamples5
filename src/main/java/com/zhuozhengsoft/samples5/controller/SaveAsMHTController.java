@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -14,34 +15,36 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SaveAsMHT/")
+@RequestMapping(value = "/SaveAsMHT/")
 public class SaveAsMHTController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SaveAsMHTController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //添加自定义按钮
-        poCtrl.addCustomToolButton("另存MHT","saveAsMHT",1);
+        poCtrl.addCustomToolButton("另存MHT", "saveAsMHT", 1);
 
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SaveAsMHT/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SaveAsMHT/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SaveAsMHT/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SaveAsMHT\\"+fs.getFileName());
+        fs.saveToFile(dir + "SaveAsMHT\\" + fs.getFileName());
         fs.close();
     }
 

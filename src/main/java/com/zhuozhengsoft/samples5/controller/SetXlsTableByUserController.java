@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -17,22 +18,25 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SetXlsTableByUser/")
+@RequestMapping(value = "/SetXlsTableByUser/")
 public class SetXlsTableByUserController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SetXlsTableByUserController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
 
         ModelAndView mv = new ModelAndView("SetXlsTableByUser/index");
         return mv;
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-        String userName=request.getParameter("userName");
+
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
+        String userName = request.getParameter("userName");
 
 
         Workbook wb = new Workbook();
@@ -48,15 +52,13 @@ public class SetXlsTableByUserController {
         String strInfo = "";
 
         //A部门经理登录后
-        if (userName.equals("zhangsan"))
-        {
+        if (userName.equals("zhangsan")) {
             strInfo = "A部门经理，所以只能编辑A部门的产品数据";
             tableA.setReadOnly(false);
             tableB.setReadOnly(true);
         }
         //B部门经理登录后
-        else
-        {
+        else {
             strInfo = "B部门经理，所以只能编辑B部门的产品数据";
             tableA.setReadOnly(true);
             tableB.setReadOnly(false);
@@ -69,18 +71,18 @@ public class SetXlsTableByUserController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SetXlsTableByUser/test.xls", OpenModeType.xlsSubmitForm,userName);
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("strInfo",strInfo);
+        poCtrl.webOpen("/doc/SetXlsTableByUser/test.xls", OpenModeType.xlsSubmitForm, userName);
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("strInfo", strInfo);
         ModelAndView mv = new ModelAndView("SetXlsTableByUser/Excel");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SetXlsTableByUser\\"+fs.getFileName());
+        fs.saveToFile(dir + "SetXlsTableByUser\\" + fs.getFileName());
         fs.close();
     }
 

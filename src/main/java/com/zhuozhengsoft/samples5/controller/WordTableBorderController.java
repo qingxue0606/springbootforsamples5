@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -17,13 +18,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/WordTableBorder/")
+@RequestMapping(value = "/WordTableBorder/")
 public class WordTableBorderController {
 
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument doc = new WordDocument();
         //打开数据区域
         DataRegion dataRegion = doc.openDataRegion("PO_regTable");
@@ -46,18 +47,18 @@ public class WordTableBorderController {
         table.setRowsHeight(30.5f);
 
         //设置表格的边框
-        Border border=table.getBorder();
+        Border border = table.getBorder();
         // 设置边框的类型
         border.setBorderType(WdBorderType.wdFullGrid);//包含内边框
         //设置边框的颜色
         border.setLineColor(Color.red);
         //设置边框的线条样式
-        border.setLineStyle(WdLineStyle.wdLineStyleDot );
+        border.setLineStyle(WdLineStyle.wdLineStyleDot);
         //设置边框的粗细
         border.setLineWidth(WdLineWidth.wdLineWidth150pt);
 
         //设置表格内字体样式
-        com.zhuozhengsoft.pageoffice.wordwriter.Font font=dataRegion.getFont();
+        com.zhuozhengsoft.pageoffice.wordwriter.Font font = dataRegion.getFont();
         //设置字体的是否加粗
         font.setBold(true);
         //设置字体的颜色
@@ -75,8 +76,8 @@ public class WordTableBorderController {
         //隐藏自定义工具栏
         poCtrl.setCustomToolbar(false);
         //打开Word文档
-        poCtrl.webOpen("/doc/WordTableBorder/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/WordTableBorder/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("WordTableBorder/Word");
         return mv;
     }

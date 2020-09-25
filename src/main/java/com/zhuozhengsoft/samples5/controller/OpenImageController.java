@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PDFCtrl;
@@ -15,13 +16,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/OpenImage/")
+@RequestMapping(value = "/OpenImage/")
 public class OpenImageController {
 
-    @RequestMapping(value="PDF", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "PDF", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
         PDFCtrl poCtrl = new PDFCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         // Create custom toolbar
         poCtrl.addCustomToolButton("打印", "Print()", 6);
@@ -40,7 +41,7 @@ public class OpenImageController {
         poCtrl.addCustomToolButton("全屏", "SwitchFullScreen()", 4);
         poCtrl.webOpen("/doc/OpenImage/test.jpg");
 
-        map.put("pageoffice",poCtrl.getHtmlCode("PDFCtrl1"));
+        map.put("pageoffice", poCtrl.getHtmlCode("PDFCtrl1"));
         ModelAndView mv = new ModelAndView("OpenImage/pdf");
         return mv;
     }

@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -19,15 +20,17 @@ import java.text.NumberFormat;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SubmitExcel/")
+@RequestMapping(value = "/SubmitExcel/")
 public class SubmitExcelController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SubmitExcelController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         //定义Workbook对象
         Workbook workBook = new Workbook();
@@ -48,15 +51,15 @@ public class SubmitExcelController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SubmitExcel/test.xls", OpenModeType.xlsSubmitForm,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SubmitExcel/test.xls", OpenModeType.xlsSubmitForm, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SubmitExcel/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,Map<String,Object> map){
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
         com.zhuozhengsoft.pageoffice.excelreader.Workbook workBook = new com.zhuozhengsoft.pageoffice.excelreader.Workbook(request, response);
         com.zhuozhengsoft.pageoffice.excelreader.Sheet sheet = workBook.openSheet("Sheet1");
         com.zhuozhengsoft.pageoffice.excelreader.Table table = sheet.openTable("Info");
@@ -75,15 +78,15 @@ public class SubmitExcelController {
                         + table.getDataFields().get(3).getText();
                 //out.print(table.getDataFields().get(2).getText()+"      mmmmmmmmmmmmm          "+table.getDataFields().get(1).getText());
                 if (table.getDataFields().get(2).getText().equals(null)
-                        || table.getDataFields().get(2).getText().trim().length()==0
+                        || table.getDataFields().get(2).getText().trim().length() == 0
                 ) {
                     content += "<br/>完成率：0%";
                 } else {
                     float f = Float.parseFloat(table.getDataFields().get(2)
                             .getText());
                     f = f / Float.parseFloat(table.getDataFields().get(1).getText());
-                    DecimalFormat df=(DecimalFormat) NumberFormat.getInstance();
-                    content += "<br/>完成率：" + df.format(f*100)+"%";
+                    DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
+                    content += "<br/>完成率：" + df.format(f * 100) + "%";
                 }
                 content += "<br/>*********************************************";
             }
@@ -94,7 +97,7 @@ public class SubmitExcelController {
 
         workBook.showPage(500, 400);
         workBook.close();
-        map.put("content",content);
+        map.put("content", content);
         ModelAndView mv = new ModelAndView("SubmitExcel/save");
         return mv;
     }

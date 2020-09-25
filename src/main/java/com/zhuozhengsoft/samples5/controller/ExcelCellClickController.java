@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -17,12 +18,12 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ExcelCellClick/")
+@RequestMapping(value = "/ExcelCellClick/")
 public class ExcelCellClickController {
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         //定义Workbook对象
         Workbook workBook = new Workbook();
@@ -45,15 +46,15 @@ public class ExcelCellClickController {
         poCtrl.setSaveDataPage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelCellClick/test.xls", OpenModeType.xlsSubmitForm,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ExcelCellClick/test.xls", OpenModeType.xlsSubmitForm, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelCellClick/Excel");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,Map<String,Object> map){
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
         com.zhuozhengsoft.pageoffice.excelreader.Workbook workBook = new com.zhuozhengsoft.pageoffice.excelreader.Workbook(request, response);
         com.zhuozhengsoft.pageoffice.excelreader.Sheet sheet = workBook.openSheet("Sheet1");
         com.zhuozhengsoft.pageoffice.excelreader.Table table = sheet.openTable("B4:D8");
@@ -63,8 +64,7 @@ public class ExcelCellClickController {
 
             //获取提交的数值
             //DataFields.Count标识的是table的列数
-            if (!table.getDataFields().getIsEmpty())
-            {
+            if (!table.getDataFields().getIsEmpty()) {
                 content += "<br/>月份名称：" + table.getDataFields().get(0).getText();
                 content += "<br/>计划完成量：" + table.getDataFields().get(1).getText();
                 content += "<br/>实际完成量：" + table.getDataFields().get(2).getText();
@@ -78,13 +78,13 @@ public class ExcelCellClickController {
 
         workBook.showPage(500, 400);
         workBook.close();
-        map.put("content",content);
+        map.put("content", content);
         return new ModelAndView("ExcelCellClick/save");
     }
 
 
     @RequestMapping("select")
-    public ModelAndView select(HttpServletRequest request, HttpServletResponse response,Map<String,Object> map){
+    public ModelAndView select(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
 
         return new ModelAndView("ExcelCellClick/select");
     }

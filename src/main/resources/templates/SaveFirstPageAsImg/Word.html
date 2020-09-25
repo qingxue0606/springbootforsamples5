@@ -14,6 +14,7 @@
             document.getElementById("PageOfficeCtrl1").Alert("文档保存成功!");
         }
     }
+
     function SaveFirstAsImg() {
         document.getElementById("PageOfficeCtrl1").WebSaveAsImage();
         if (document.getElementById("PageOfficeCtrl1").CustomSaveResult == "ok") {
@@ -24,7 +25,7 @@
         }
     }
 </script>
-<div><img id="img1" /></div>
+<div><img id="img1"/></div>
 <div style="width:auto; height:700px;" th:utext="${pageoffice}">
 </div>
 </body>

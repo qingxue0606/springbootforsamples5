@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -18,21 +19,23 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SetDrByUserWord2/")
+@RequestMapping(value = "/SetDrByUserWord2/")
 public class SetDrByUserWord2Controller {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SetDrByUserWord2Controller() throws FileNotFoundException {
     }
 
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
         ModelAndView mv = new ModelAndView("SetDrByUserWord2/index");
         return mv;
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         String userName = request.getParameter("userName");
         //***************************卓正PageOffice组件的使用********************************
         WordDocument doc = new WordDocument();
@@ -67,12 +70,12 @@ public class SetDrByUserWord2Controller {
         poCtrl.addCustomToolButton("全屏/还原", "IsFullScreen", 4);
 
         //设置保存页面
-        poCtrl.setSaveDataPage("save?userName="+ userName);//设置处理文件保存的请求方法
+        poCtrl.setSaveDataPage("save?userName=" + userName);//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SetDrByUserWord2/test.doc", OpenModeType.docSubmitForm,userName);
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("userName",userName);
+        poCtrl.webOpen("/doc/SetDrByUserWord2/test.doc", OpenModeType.docSubmitForm, userName);
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("userName", userName);
         ModelAndView mv = new ModelAndView("SetDrByUserWord2/Word");
         return mv;
     }
@@ -92,7 +95,7 @@ public class SetDrByUserWord2Controller {
         }
         doc.close();
 
-        filePath = dir+"SetDrByUserWord2\\"  + filePath;
+        filePath = dir + "SetDrByUserWord2\\" + filePath;
         FileOutputStream outputStream = new FileOutputStream(filePath);
         outputStream.write(bytes);
         outputStream.flush();

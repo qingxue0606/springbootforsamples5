@@ -12,20 +12,19 @@
     }
 
     //文档关闭前先提示用户是否保存
-    function BeforeBrowserClosed(){
-        if (document.getElementById("PageOfficeCtrl1").IsDirty){
-            if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
-            {
-                return  true;
+    function BeforeBrowserClosed() {
+        if (document.getElementById("PageOfficeCtrl1").IsDirty) {
+            if (confirm("提示：文档已被修改，是否继续关闭放弃保存 ？")) {
+                return true;
 
-            }else{
+            } else {
 
-                return  false;
+                return false;
             }
         }
     }
 </script>
-<form id="form1" >
+<form id="form1">
     当前用户： <span th:utext="${userName}"></span>。
     <div style=" width:auto; height:700px;" th:utext="${pageoffice}">
     </div>

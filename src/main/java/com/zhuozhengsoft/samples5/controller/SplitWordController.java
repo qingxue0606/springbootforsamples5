@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -18,15 +19,17 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SplitWord/")
+@RequestMapping(value = "/SplitWord/")
 public class SplitWordController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SplitWordController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument wordDoc = new WordDocument();
         //打开数据区域，openDataRegion方法的参数代表Word文档中的书签名称
         DataRegion dataRegion1 = wordDoc.openDataRegion("PO_test1");
@@ -37,14 +40,14 @@ public class SplitWordController {
         DataRegion dataRegion3 = wordDoc.openDataRegion("PO_test3");
         dataRegion3.setSubmitAsFile(true);
         poCtrl.setWriter(wordDoc);
-        poCtrl.addCustomToolButton("保存","Save()",1);
+        poCtrl.addCustomToolButton("保存", "Save()", 1);
 
         //设置保存页面
         poCtrl.setSaveDataPage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SplitWord/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SplitWord/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SplitWord/Word");
         return mv;
     }

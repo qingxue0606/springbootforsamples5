@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,13 +17,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/DrawExcel/")
+@RequestMapping(value = "/DrawExcel/")
 public class DrawExcelController {
 
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         Workbook wb = new Workbook();
         // 设置背景
         Table backGroundTable = wb.openSheet("Sheet1").openTable("A1:P200");
@@ -254,12 +255,11 @@ public class DrawExcelController {
         poCtrl.setMenubar(false);//隐藏菜单栏
         poCtrl.setOfficeToolbars(false);//隐藏Office工具栏
 
-        poCtrl.webOpen("/doc/DrawExcel/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/DrawExcel/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DrawExcel/Excel");
         return mv;
     }
-
 
 
 }

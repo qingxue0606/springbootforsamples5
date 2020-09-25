@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -14,15 +15,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/HandDrawsList/")
+@RequestMapping(value = "/HandDrawsList/")
 public class HandDrawsListController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public HandDrawsListController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
         poCtrl.addCustomToolButton("保存", "Save()", 1);
         poCtrl.addCustomToolButton("开始手写", "StartHandDraw()", 3);
@@ -36,17 +39,17 @@ public class HandDrawsListController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/HandDrawsList/test.doc", OpenModeType.docHandwritingOnly,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/HandDrawsList/test.doc", OpenModeType.docHandwritingOnly, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("HandDrawsList/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "HandDrawsList\\"+fs.getFileName());
+        fs.saveToFile(dir + "HandDrawsList\\" + fs.getFileName());
         fs.close();
     }
 

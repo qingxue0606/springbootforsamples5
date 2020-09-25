@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.*;
 import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
@@ -13,15 +14,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/DataTagEdit/")
+@RequestMapping(value = "/DataTagEdit/")
 public class DataTagEditController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public DataTagEditController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument doc = new WordDocument();
         doc.getTemplate().defineDataTag("{ 甲方 }");
         doc.getTemplate().defineDataTag("{ 乙方 }");
@@ -32,20 +35,21 @@ public class DataTagEditController {
         poCtrl.addCustomToolButton("保存", "Save()", 1);
         poCtrl.addCustomToolButton("定义数据标签", "ShowDefineDataTags()", 20);
 
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
         poCtrl.setSaveFilePage("SaveFile.jsp");
 
         poCtrl.setTheme(ThemeType.Office2007);
         poCtrl.setBorderStyle(BorderStyleType.BorderThin);
         poCtrl.setWriter(doc);
         //打开Word文档
-        poCtrl.webOpen("/doc/DataTagEdit/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/DataTagEdit/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DataTagEdit/Word");
         return mv;
     }
-    @RequestMapping(value="DataTagDlg", method= RequestMethod.GET)
-    public ModelAndView dataTagDlg(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "DataTagDlg", method = RequestMethod.GET)
+    public ModelAndView dataTagDlg(HttpServletRequest request, Map<String, Object> map) {
 
         ModelAndView mv = new ModelAndView("DataTagEdit/DataTagDlg");
         return mv;
@@ -53,9 +57,9 @@ public class DataTagEditController {
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "DataTagEdit\\"+fs.getFileName());
+        fs.saveToFile(dir + "DataTagEdit\\" + fs.getFileName());
         fs.close();
     }
 

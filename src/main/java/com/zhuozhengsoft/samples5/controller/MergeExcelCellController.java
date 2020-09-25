@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,15 +17,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/MergeExcelCell/")
+@RequestMapping(value = "/MergeExcelCell/")
 public class MergeExcelCellController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public MergeExcelCellController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         Workbook wb = new Workbook();
         Sheet sheet = wb.openSheet("Sheet1");
         //合并单元格
@@ -54,17 +57,17 @@ public class MergeExcelCellController {
 
         poCtrl.setCustomToolbar(false);
         //打开Word文档
-        poCtrl.webOpen("/doc/MergeExcelCell/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/MergeExcelCell/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("MergeExcelCell/Excel");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "MergeExcelCell\\"+fs.getFileName());
+        fs.saveToFile(dir + "MergeExcelCell\\" + fs.getFileName());
         fs.close();
     }
 

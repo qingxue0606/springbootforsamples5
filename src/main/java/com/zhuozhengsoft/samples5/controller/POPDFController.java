@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PDFCtrl;
@@ -15,13 +16,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/POPDF/")
+@RequestMapping(value = "/POPDF/")
 public class POPDFController {
 
-    @RequestMapping(value="pdf", method= RequestMethod.GET)
-    public ModelAndView showPdf(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "pdf", method = RequestMethod.GET)
+    public ModelAndView showPdf(HttpServletRequest request, Map<String, Object> map) {
         PDFCtrl pdfCtrl = new PDFCtrl(request);
-        pdfCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //此行必须
+        pdfCtrl.setServerPage(request.getContextPath() + "/poserver.zz"); //此行必须
 // Create custom toolbar
         pdfCtrl.addCustomToolButton("打印", "PrintFile()", 6);
         pdfCtrl.addCustomToolButton("隐藏/显示书签", "SetBookmarks()", 0);
@@ -39,12 +40,10 @@ public class POPDFController {
         pdfCtrl.addCustomToolButton("向右旋转90度", "SetRotateRight()", 13);
         pdfCtrl.webOpen("/doc/POPDF/test.pdf");
 
-        map.put("pageoffice",pdfCtrl.getHtmlCode("PDFCtrl1"));
+        map.put("pageoffice", pdfCtrl.getHtmlCode("PDFCtrl1"));
         ModelAndView mv = new ModelAndView("POPDF/pdf");
         return mv;
     }
-
-
 
 
 }

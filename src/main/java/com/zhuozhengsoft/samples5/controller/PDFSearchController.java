@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PDFCtrl;
@@ -15,15 +16,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/PDFSearch/")
+@RequestMapping(value = "/PDFSearch/")
 public class PDFSearchController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public PDFSearchController() throws FileNotFoundException {
     }
-    @RequestMapping(value="PDF", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "PDF", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
         PDFCtrl poCtrl = new PDFCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //此行必须
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz"); //此行必须
 
 // Create custom toolbar
         poCtrl.addCustomToolButton("搜索", "SearchText()", 0);
@@ -35,11 +38,10 @@ public class PDFSearchController {
 
         //打开Word文档
         poCtrl.webOpen("/doc/PDFSearch/test.pdf");
-        map.put("pageoffice",poCtrl.getHtmlCode("PDFCtrl1"));
+        map.put("pageoffice", poCtrl.getHtmlCode("PDFCtrl1"));
         ModelAndView mv = new ModelAndView("PDFSearch/Word");
         return mv;
     }
-
 
 
 }

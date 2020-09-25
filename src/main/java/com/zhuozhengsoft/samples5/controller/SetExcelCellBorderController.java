@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,13 +17,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SetExcelCellBorder/")
+@RequestMapping(value = "/SetExcelCellBorder/")
 public class SetExcelCellBorderController {
 
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         Workbook wb = new Workbook();
         Sheet sheet = wb.openSheet("Sheet1");
         // 设置背景
@@ -58,8 +59,8 @@ public class SetExcelCellBorderController {
         poCtrl.setWriter(wb);
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SetExcelCellBorder/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SetExcelCellBorder/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SetExcelCellBorder/Word");
         return mv;
     }

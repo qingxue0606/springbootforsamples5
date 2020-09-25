@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -15,32 +16,34 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/HtmlWord/")
+@RequestMapping(value = "/HtmlWord/")
 public class HtmlWordController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public HtmlWordController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
 
         ModelAndView mv = new ModelAndView("HtmlWord/index");
         return mv;
     }
-    @RequestMapping(value="Word", method= RequestMethod.POST)
+
+    @RequestMapping(value = "Word", method = RequestMethod.POST)
     @ResponseBody
-    public String showWord(HttpServletRequest request, Map<String,Object> map){
-        String data="param1:" + request.getParameter("param1");
-        data+="<br>";
-        data+="param2:" + request.getParameter("param2");
+    public String showWord(HttpServletRequest request, Map<String, Object> map) {
+        String data = "param1:" + request.getParameter("param1");
+        data += "<br>";
+        data += "param2:" + request.getParameter("param2");
 
 
-
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
 
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("保存", "Save", 1);
 
 
         //设置保存页面
@@ -48,16 +51,16 @@ public class HtmlWordController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/HtmlWord/test.doc", OpenModeType.docNormalEdit,"张三");
-        data+=poCtrl.getHtmlCode("PageOfficeCtrl1");
+        poCtrl.webOpen("/doc/HtmlWord/test.doc", OpenModeType.docNormalEdit, "张三");
+        data += poCtrl.getHtmlCode("PageOfficeCtrl1");
         return data;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "HtmlWord\\"+fs.getFileName());
+        fs.saveToFile(dir + "HtmlWord\\" + fs.getFileName());
         fs.close();
     }
 

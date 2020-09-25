@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -17,15 +18,17 @@ import java.util.Map;
 import static java.lang.System.out;
 
 @RestController
-@RequestMapping(value="/ImportWordData/")
+@RequestMapping(value = "/ImportWordData/")
 public class ImportWordDataController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public ImportWordDataController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         poCtrl.addCustomToolButton("导入文件", "importData()", 15);
         poCtrl.addCustomToolButton("提交数据", "submitData()", 1);
@@ -36,14 +39,14 @@ public class ImportWordDataController {
         //设置保存页面
         poCtrl.setSaveDataPage("save");//设置处理文件保存的请求方法
 
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ImportWordData/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         String ErrorMsg = "";
         String BaseUrl = "";
         //-----------  PageOffice 服务器端编程开始  -------------------//
@@ -75,17 +78,17 @@ public class ImportWordDataController {
                 ErrorMsg = ErrorMsg + "<li>请假天数</li>";
             }
         } catch (Exception Ex) {
-            ErrorMsg = ErrorMsg	+ "<li><font color=red>注意：</font>请假天数必须是数字</li>";
+            ErrorMsg = ErrorMsg + "<li><font color=red>注意：</font>请假天数必须是数字</li>";
         }
 
         if (ErrorMsg == "") {
             // 您可以在此编程，保存这些数据到数据库中。
             out.println("提交的数据为：<br/>");
-            out.println("姓名："+sName+"<br/>");
-            out.println("部门："+sDept+"<br/>");
-            out.println("原因："+sCause+"<br/>");
-            out.println("天数："+sNum+"<br/>");
-            out.println("日期："+sDate+"<br/>");
+            out.println("姓名：" + sName + "<br/>");
+            out.println("部门：" + sDept + "<br/>");
+            out.println("原因：" + sCause + "<br/>");
+            out.println("天数：" + sNum + "<br/>");
+            out.println("日期：" + sDate + "<br/>");
             doc.showPage(578, 380);
         } else {
             ErrorMsg = "<div style='color:#FF0000;'>请修改以下信息：</div> "

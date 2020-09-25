@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
     <script type="text/javascript">
 
         // 方法: window.external.CallParentFunc 
         // 作用: 调用父窗口中的js函数, 目前只支持传递一个参数. 
-        var names = window.external.CallParentFunc("getBkNames", ""); 
-        var conts = window.external.CallParentFunc("getBkConts", ""); 
+        var names = window.external.CallParentFunc("getBkNames", "");
+        var conts = window.external.CallParentFunc("getBkConts", "");
         var bkmkArr = names.split(";");
         var bkContArr = conts.split(";");
         var addBkmkArr = new Array(0);
@@ -23,11 +23,11 @@
             searchBookMark2('');
             return;
         }
-        
+
         //遍历Word文件中已存在的书签名称及其对应的文本内容
         function pcheckBks() {
-            var pBkNames = window.external.CallParentFunc("checkBkNames", ""); 
-            var pBkConts = window.external.CallParentFunc("checkBkConts", ""); 
+            var pBkNames = window.external.CallParentFunc("checkBkNames", "");
+            var pBkConts = window.external.CallParentFunc("checkBkConts", "");
 
             if (pBkNames != "" && pBkNames != null && pBkConts != "" && pBkConts != null) {
                 var currBkmArr = pBkNames.split(",");
@@ -52,7 +52,7 @@
                 }
             }
         }
-        
+
         //加载左侧数据列表
         function searchBookMark(s) {
             //删除所有行
@@ -61,7 +61,7 @@
             for (var i = 0; i < rCount; i++) {
                 tb1.deleteRow(0);
             }
-          
+
             var oTable = document.getElementById("bkmkTable");
             for (var i = 0; i < bkmkArr.length; i++) {
                 if (bkmkArr[i] != null && bkmkArr[i] != "" && 0 == bkmkArr[i].toLocaleLowerCase().indexOf(s.toLocaleLowerCase())) {
@@ -75,7 +75,7 @@
                 }
             }
         }
-        
+
         //加载右侧数据列表
         function searchBookMark2(s) {
             //删除所有行
@@ -113,7 +113,7 @@
             }
 
             var oTable = document.getElementById("bkmkTable");
-            for (var i = 0; i < bkmkArr.length; i++) {               
+            for (var i = 0; i < bkmkArr.length; i++) {
                 if (bkmkArr[i] != null && bkmkArr[i] != "" && bkmkArr[i].toLocaleLowerCase().indexOf(s) >= 0) {
 
                     var oTr = oTable.insertRow();
@@ -150,7 +150,7 @@
                         oTd = oTr.insertCell();
                         oTd.innerHTML = "&nbsp;&nbsp;<a href=\"javascript:void(0);\"  onclick= \"del('" + addBkmkArr[i] + "','" + addBkmkContArr[i] + "')\">&nbsp;删除</a>";
                     }
-                    
+
                 }
             }
         }
@@ -158,7 +158,7 @@
         //******** 书签操作 ************************************************************
 
         function add(name, content) {
-            if ("true" ==  window.external.CallParentFunc("addBookMark","PO_" + name +"="+ content)) {
+            if ("true" == window.external.CallParentFunc("addBookMark", "PO_" + name + "=" + content)) {
                 var start = 0;
                 for (var i = 0; i < bkmkArr.length; i++) {
                     if (bkmkArr[i] == name) {
@@ -193,36 +193,40 @@
                 searchBookMark('');
                 searchBookMark2('');
             }
-            else { alert(0)}
+            else {
+                alert(0)
+            }
         }
-        
+
         function locate(bkName) {
-            window.external.CallParentFunc("locateBK", bkName); 
-        } 
+            window.external.CallParentFunc("locateBK", bkName);
+        }
 
     </script>
 </head>
 <body>
-    <div style="width: 470px; height: 320px;">
-        <div style="float: left;font-size:12px;">
-            <span>待添加标签：</span><br />
-            <input id="Text1" type="text" onpropertychange="searchBookMark(this.value);" oninput="searchBookMark(this.value);"  />
-            <input id="Button1" type="button" value="搜索" onclick="return Button1_onclick()" />
-            <div style="width: 230px; height: 300px; border: solid 1px #ccc; overflow-y: scroll; ">
-                <table id="bkmkTable" style=" font-size:12px;">
-                </table>
-            </div>
-        </div>
-        <div style="float: right;font-size:12px;">
-            <span>已添加标签：</span><br />
-            <input id="Text2" type="text" onpropertychange="searchBookMark2(this.value);" oninput="searchBookMark2(this.value);" />
-            <input id="Button2" type="button" value="搜索" onclick="return Button2_onclick()" />
-            <div style="width: 230px; height: 300px; border: solid 1px #ccc; overflow-y: scroll; ">
-                <table id="bkmkTable2" style=" font-size:12px;">
-                </table>
-            </div>
+<div style="width: 470px; height: 320px;">
+    <div style="float: left;font-size:12px;">
+        <span>待添加标签：</span><br/>
+        <input id="Text1" type="text" onpropertychange="searchBookMark(this.value);"
+               oninput="searchBookMark(this.value);"/>
+        <input id="Button1" type="button" value="搜索" onclick="return Button1_onclick()"/>
+        <div style="width: 230px; height: 300px; border: solid 1px #ccc; overflow-y: scroll; ">
+            <table id="bkmkTable" style=" font-size:12px;">
+            </table>
         </div>
     </div>
+    <div style="float: right;font-size:12px;">
+        <span>已添加标签：</span><br/>
+        <input id="Text2" type="text" onpropertychange="searchBookMark2(this.value);"
+               oninput="searchBookMark2(this.value);"/>
+        <input id="Button2" type="button" value="搜索" onclick="return Button2_onclick()"/>
+        <div style="width: 230px; height: 300px; border: solid 1px #ccc; overflow-y: scroll; ">
+            <table id="bkmkTable2" style=" font-size:12px;">
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
     load();

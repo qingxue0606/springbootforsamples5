@@ -9,14 +9,14 @@
 <form id="form1">
     <div style=" font-size:small; color:Red;">
         <label>关键代码：点右键，选择“查看源文件”，看js函数：</label>
-        <label>function  addBookMark() 和 function delBookMark()</label>
+        <label>function addBookMark() 和 function delBookMark()</label>
         <br/>
-        <label>插入书签时，请先输入要插入的书签名称和文本；删除书签时，请先输入相应的书签名称！</label><br />
-        <label>书签名称：</label><input id="txtBkName" type="text" value="test" />
-        &nbsp;&nbsp;<label>书签文本：</label><input id="txtBkText" type="text" value="[测试]" />
+        <label>插入书签时，请先输入要插入的书签名称和文本；删除书签时，请先输入相应的书签名称！</label><br/>
+        <label>书签名称：</label><input id="txtBkName" type="text" value="test"/>
+        &nbsp;&nbsp;<label>书签文本：</label><input id="txtBkText" type="text" value="[测试]"/>
     </div>
-    <input id="Button1" type="button" onclick="addBookMark();" value="插入书签" />
-    <input id="Button2" type="button" onclick="delBookMark()" value="删除书签" />
+    <input id="Button1" type="button" onclick="addBookMark();" value="插入书签"/>
+    <input id="Button2" type="button" onclick="delBookMark()" value="删除书签"/>
     <div style=" width:auto; height:700px;" th:utext="${pageoffice}">
     </div>
 </form>
@@ -61,6 +61,7 @@
             + "End Function " + " \r\n";
         document.getElementById("PageOfficeCtrl1").RunMacro("myfunc", mac);
     }
+
     function delBookMark() {
         var mac = "Function myfunc()" + " \r\n"
             + "If  Application.ActiveDocument.Bookmarks.Exists(\"" + bkName + "\") Then " + " \r\n"

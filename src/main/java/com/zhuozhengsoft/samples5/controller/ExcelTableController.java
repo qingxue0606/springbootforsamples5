@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -17,13 +18,13 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ExcelTable/")
+@RequestMapping(value = "/ExcelTable/")
 public class ExcelTableController {
 
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         poCtrl.setCaption("使用OpenTable给Excel赋值");
         //定义Workbook对象
@@ -32,11 +33,10 @@ public class ExcelTableController {
         Sheet sheet = workBook.openSheet("Sheet1");
         //定义Table对象
         Table table = sheet.openTable("B4:F13");
-        for(int i=0; i < 50; i++)
-        {
+        for (int i = 0; i < 50; i++) {
             table.getDataFields().get(0).setValue("产品 " + i);
             table.getDataFields().get(1).setValue("100");
-            table.getDataFields().get(2).setValue(String.valueOf(100+i));
+            table.getDataFields().get(2).setValue(String.valueOf(100 + i));
             table.nextRow();
         }
         table.close();
@@ -49,8 +49,8 @@ public class ExcelTableController {
         poCtrl.setCustomToolbar(false);
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelTable/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ExcelTable/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelTable/Word");
         return mv;
     }

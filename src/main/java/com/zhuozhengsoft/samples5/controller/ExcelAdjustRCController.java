@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,28 +17,27 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ExcelAdjustRC/")
+@RequestMapping(value = "/ExcelAdjustRC/")
 public class ExcelAdjustRCController {
 
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         poCtrl.setCustomToolbar(false);
-        Workbook wb=new Workbook ();
-        Sheet sheet1=wb.openSheet("Sheet1");
+        Workbook wb = new Workbook();
+        Sheet sheet1 = wb.openSheet("Sheet1");
         //设置当工作表只读时，是否允许用户手动调整行列。
         sheet1.setAllowAdjustRC(true);
         poCtrl.setWriter(wb);//此行必须
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelAdjustRC/test.xls", OpenModeType.xlsReadOnly,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ExcelAdjustRC/test.xls", OpenModeType.xlsReadOnly, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelAdjustRC/Word");
         return mv;
     }
-
 
 
 }

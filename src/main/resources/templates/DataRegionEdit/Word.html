@@ -39,6 +39,7 @@
                 return "false";
             }
         }
+
         //删除书签
         function delBookMark(bkName) {
             var drlist = document.getElementById("PageOfficeCtrl1").DataRegionList;
@@ -81,6 +82,7 @@
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
+
         function ShowDefineDataRegions() {
             document.getElementById("PageOfficeCtrl1").ShowHtmlModelessDialog("DataRegionDlg", "parameter=xx", "left=300px;top=390px;width=520px;height=410px;frame:no;");
 

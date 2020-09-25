@@ -30,6 +30,7 @@
         var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;
         document.getElementById("PageOfficeCtrl1").CustomToolbar = !bVisible;
     }
+
     // 隐藏/显示 Office工具栏
     function Button4_onclick() {
         var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;
@@ -37,12 +38,12 @@
     }
 
 </script>
-<form id="form1" >
-    <input id="Button1" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
-    <input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
-    <input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
-    <input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
-    <br /><br />
+<form id="form1">
+    <input id="Button1" type="button" value="隐藏/显示 标题栏" onclick="return Button1_onclick()"/>
+    <input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()"/>
+    <input id="Button3" type="button" value="隐藏/显示 自定义工具栏" onclick="return Button3_onclick()"/>
+    <input id="Button4" type="button" value="隐藏/显示 Office工具栏" onclick="return Button4_onclick()"/>
+    <br/><br/>
     <div style=" width:auto; height:700px;" th:utext="${pageoffice}">
     </div>
 </form>

@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.*;
 import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
@@ -13,15 +14,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/DataRegionEdit/")
+@RequestMapping(value = "/DataRegionEdit/")
 public class DataRegionEditController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public DataRegionEditController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument doc = new WordDocument();
         doc.getTemplate().defineDataRegion("Name", "[ 姓名 ]");
         doc.getTemplate().defineDataRegion("Address", "[ 地址 ]");
@@ -41,24 +44,23 @@ public class DataRegionEditController {
         poCtrl.setWriter(doc);
         poCtrl.setSaveFilePage("save");
         //打开Word文档
-        poCtrl.webOpen("/doc/DataRegionEdit/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/DataRegionEdit/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("DataRegionEdit/Word");
         return mv;
     }
-    @RequestMapping(value="DataRegionDlg", method= RequestMethod.GET)
-    public ModelAndView dataRegionDlg(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "DataRegionDlg", method = RequestMethod.GET)
+    public ModelAndView dataRegionDlg(HttpServletRequest request, Map<String, Object> map) {
 
         return new ModelAndView("DataRegionEdit/DataRegionDlg");
     }
 
 
-
-
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "DataRegionEdit\\"+fs.getFileName());
+        fs.saveToFile(dir + "DataRegionEdit\\" + fs.getFileName());
         fs.close();
     }
 

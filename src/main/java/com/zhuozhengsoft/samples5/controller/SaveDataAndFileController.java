@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,15 +17,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SaveDataAndFile/")
+@RequestMapping(value = "/SaveDataAndFile/")
 public class SaveDataAndFileController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SaveDataAndFileController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         WordDocument wordDoc = new WordDocument();
         //打开数据区域，openDataRegion方法的参数代表Word文档中的书签名称
@@ -45,26 +48,27 @@ public class SaveDataAndFileController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SaveDataAndFile/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SaveDataAndFile/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SaveDataAndFile/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SaveDataAndFile\\"+fs.getFileName());
+        fs.saveToFile(dir + "SaveDataAndFile\\" + fs.getFileName());
         fs.close();
     }
+
     @RequestMapping("SaveData")
-    public void saveData(HttpServletRequest request, HttpServletResponse response){
+    public void saveData(HttpServletRequest request, HttpServletResponse response) {
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request, response);
         //获取提交的数值
         String dataUserName = doc.openDataRegion("PO_userName").getValue();
         String dataDeptName = doc.openDataRegion("PO_deptName").getValue();
-        String companyName= doc.getFormField("txtCompany");
+        String companyName = doc.getFormField("txtCompany");
 
         /**获取到的公司名称,员工姓名,部门名称等内容可以保存到数据库,这里可以连接开发人员自己的数据库,例如连接mysql数据库。
          *Class.forName("com.mysql.jdbc.Driver");

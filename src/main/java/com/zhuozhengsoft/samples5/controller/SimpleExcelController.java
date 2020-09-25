@@ -17,32 +17,34 @@ import java.util.Map;
 import static org.springframework.util.ResourceUtils.*;
 
 @RestController
-@RequestMapping(value="/SimpleExcel/")
+@RequestMapping(value = "/SimpleExcel/")
 public class SimpleExcelController {
-    private String dir= getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = getURL("classpath:").getPath() + "static\\doc\\";
+
     public SimpleExcelController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showExcel(HttpServletRequest request, Map<String,Object> map){
 
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showExcel(HttpServletRequest request, Map<String, Object> map) {
+
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-        poCtrl.addCustomToolButton("关闭","Close",21);
+        poCtrl.addCustomToolButton("保存", "Save", 1);
+        poCtrl.addCustomToolButton("关闭", "Close", 21);
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
         //打开word
-        poCtrl.webOpen("/doc/SimpleExcel/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SimpleExcel/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
 
         ModelAndView mv = new ModelAndView("SimpleExcel/Excel");
         return mv;
     }
 
     @RequestMapping("save")
-    public void saveFile(HttpServletRequest request, HttpServletResponse response){
+    public void saveFile(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SimpleExcel\\"+fs.getFileName());
+        fs.saveToFile(dir + "SimpleExcel\\" + fs.getFileName());
         fs.close();
     }
 }

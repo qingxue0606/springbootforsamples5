@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -20,13 +21,13 @@ import java.text.NumberFormat;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ExcelFill2/")
+@RequestMapping(value = "/ExcelFill2/")
 public class ExcelFill2Controller {
 
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         poCtrl.setCaption("简单的给Excel赋值");
         //定义Workbook对象
         Workbook workBook = new Workbook();
@@ -52,8 +53,8 @@ public class ExcelFill2Controller {
         cellE4.setForeColor(Color.green);
 
         Cell cellF4 = sheet.openCell("F4");
-        DecimalFormat df=(DecimalFormat) NumberFormat.getInstance();
-        cellF4.setValue(df.format( 270.00 / 300*100)+"%");
+        DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
+        cellF4.setValue(df.format(270.00 / 300 * 100) + "%");
         cellF4.setForeColor(Color.gray);
 
         poCtrl.setWriter(workBook);
@@ -63,14 +64,11 @@ public class ExcelFill2Controller {
         //隐藏工具栏
         poCtrl.setCustomToolbar(false);
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelFill2/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ExcelFill2/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelFill2/Excel");
         return mv;
     }
-
-
-
 
 
 }

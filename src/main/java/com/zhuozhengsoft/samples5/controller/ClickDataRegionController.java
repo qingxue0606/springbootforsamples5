@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -18,15 +19,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ClickDataRegion/")
+@RequestMapping(value = "/ClickDataRegion/")
 public class ClickDataRegionController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public ClickDataRegionController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
         WordDocument doc = new WordDocument();
         DataRegion dataReg = doc.openDataRegion("PO_deptName");
         dataReg.getShading().setBackgroundPatternColor(Color.pink);
@@ -41,22 +44,23 @@ public class ClickDataRegionController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ClickDataRegion/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ClickDataRegion/test.doc", OpenModeType.docNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ClickDataRegion/Word");
         return mv;
     }
-    @RequestMapping(value="HTMLPage", method= RequestMethod.GET)
-    public ModelAndView hTMLPage( ){
+
+    @RequestMapping(value = "HTMLPage", method = RequestMethod.GET)
+    public ModelAndView hTMLPage() {
         ModelAndView mv = new ModelAndView("ClickDataRegion/HTMLPage");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "ClickDataRegion\\"+fs.getFileName());
+        fs.saveToFile(dir + "ClickDataRegion\\" + fs.getFileName());
         fs.close();
     }
 

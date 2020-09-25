@@ -5,8 +5,13 @@
 <head id="Head1" runat="server">
     <title>演示：js实现word中页面跳转</title>
     <style>
-        html,body{height:100%; }
-        .main{height:100%; }
+        html, body {
+            height: 100%;
+        }
+
+        .main {
+            height: 100%;
+        }
     </style>
 
 </head>
@@ -30,7 +35,7 @@
             document.getElementById("PageOfficeCtrl1").Alert("请输入页码");
             return;
         }
-        if (isNaN(num)){
+        if (isNaN(num)) {
             document.getElementById("PageOfficeCtrl1").Alert("只能输入数字");
             return;
         }
@@ -46,6 +51,7 @@
         str = str.substring(i, str.length);
         return str;
     }
+
     function RTrim(str) {
         var i;
         for (i = str.length - 1; i >= 0; i--) {
@@ -54,18 +60,20 @@
         str = str.substring(0, i + 1);
         return str;
     }
+
     function Trim(str) {
         return LTrim(RTrim(str));
     }
 </script>
 <div style="font-size:12px; line-height:20px; border-bottom:dotted 1px #ccc;border-top:dotted 1px #ccc; padding:5px;">
     <span style="color:red;">操作说明：</span>请输入页码后点跳转按钮。页码：
-    <input id="pageNum" type="text" value="3" />
-    <input id="Button1" type="button" value="跳转" onclick="return Button1_onclick()" />
-    <br />
+    <input id="pageNum" type="text" value="3"/>
+    <input id="Button1" type="button" value="跳转" onclick="return Button1_onclick()"/>
+    <br/>
 
-    关键代码：点右键，选择“查看源文件”，看js函数<span style="background-color:Yellow;">gotoPage(num)</span></div><br />
-<form id="form1"  style="height:100%;">
+    关键代码：点右键，选择“查看源文件”，看js函数<span style="background-color:Yellow;">gotoPage(num)</span></div>
+<br/>
+<form id="form1" style="height:100%;">
     <div class="main">
         <!--**************   PageOffice 客户端代码开始    ************************-->
         <div style=" width:auto; height:700px;" th:utext="${pageoffice}">

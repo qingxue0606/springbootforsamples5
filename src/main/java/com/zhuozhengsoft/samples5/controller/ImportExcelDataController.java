@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -19,15 +20,17 @@ import java.text.NumberFormat;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ImportExcelData/")
+@RequestMapping(value = "/ImportExcelData/")
 public class ImportExcelDataController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public ImportExcelDataController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         poCtrl.addCustomToolButton("导入文件", "importData()", 16);
         poCtrl.addCustomToolButton("提交数据", "submitData()", 1);
@@ -38,14 +41,14 @@ public class ImportExcelDataController {
         //设置保存页面
         poCtrl.setSaveDataPage("save");//设置处理文件保存的请求方法
 
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ImportExcelData/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,Map<String,Object> map){
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
         com.zhuozhengsoft.pageoffice.excelreader.Workbook workBook = new com.zhuozhengsoft.pageoffice.excelreader.Workbook(request, response);
         com.zhuozhengsoft.pageoffice.excelreader.Sheet sheet = workBook.openSheet("Sheet1");
         Table table = sheet.openTable("B4:F13");
@@ -63,17 +66,17 @@ public class ImportExcelDataController {
                 content += "<br/>累计完成量："
                         + table.getDataFields().get(3).getText();
                 if (table.getDataFields().get(2).getText().equals(null)
-                        || table.getDataFields().get(2).getText().trim().length()==0
+                        || table.getDataFields().get(2).getText().trim().length() == 0
                 ) {
                     content += "<br/>完成率：0%";
                 } else {
                     float f = Float.parseFloat(table.getDataFields().get(2)
                             .getText());
                     f = f / Float.parseFloat(table.getDataFields().get(1).getText());
-                    DecimalFormat df=(DecimalFormat) NumberFormat.getInstance();
-                    content += "<br/>完成率：" + df.format(f*100)+"%";
+                    DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
+                    content += "<br/>完成率：" + df.format(f * 100) + "%";
                 }
-                content +="</br>";
+                content += "</br>";
             }
             //循环进入下一行
             table.nextRow();
@@ -81,9 +84,9 @@ public class ImportExcelDataController {
         table.close();
         workBook.showPage(500, 400);
         workBook.close();
-        map.put("content",content);
+        map.put("content", content);
         ModelAndView mv = new ModelAndView("SubmitExcel/save");
-        return  mv;
+        return mv;
     }
 
 }

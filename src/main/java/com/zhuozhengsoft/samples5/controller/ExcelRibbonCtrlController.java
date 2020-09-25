@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -14,15 +15,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/ExcelRibbonCtrl/")
+@RequestMapping(value = "/ExcelRibbonCtrl/")
 public class ExcelRibbonCtrlController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public ExcelRibbonCtrlController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Excel", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Excel", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         poCtrl.getRibbonBar().setTabVisible("TabHome", true);//开始
         poCtrl.getRibbonBar().setTabVisible("TabFormulas", false);//公式
@@ -36,17 +39,17 @@ public class ExcelRibbonCtrlController {
 
         poCtrl.getRibbonBar().setGroupVisible("GroupClipboard", false);//分组剪贴板
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelRibbonCtrl/test.xls", OpenModeType.xlsNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/ExcelRibbonCtrl/test.xls", OpenModeType.xlsNormalEdit, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelRibbonCtrl/Excel");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "ExcelRibbonCtrl\\"+fs.getFileName());
+        fs.saveToFile(dir + "ExcelRibbonCtrl\\" + fs.getFileName());
         fs.close();
     }
 

@@ -12,8 +12,9 @@
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+
     function newComment() {
-        var docSel =document.getElementById("PageOfficeCtrl1").Document.Application.Selection;
+        var docSel = document.getElementById("PageOfficeCtrl1").Document.Application.Selection;
         docSel.Comments.Add(docSel.Range);
     }
 

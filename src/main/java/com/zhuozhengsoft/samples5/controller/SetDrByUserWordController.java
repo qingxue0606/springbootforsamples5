@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,21 +17,23 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SetDrByUserWord/")
+@RequestMapping(value = "/SetDrByUserWord/")
 public class SetDrByUserWordController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SetDrByUserWordController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
         ModelAndView mv = new ModelAndView("SetDrByUserWord/index");
         return mv;
     }
 
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         String userName = request.getParameter("userName");
         //***************************卓正PageOffice组件的使用********************************
@@ -77,18 +80,18 @@ public class SetDrByUserWordController {
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SetDrByUserWord/test.doc", OpenModeType.docSubmitForm,userName);
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("userName",userName);
+        poCtrl.webOpen("/doc/SetDrByUserWord/test.doc", OpenModeType.docSubmitForm, userName);
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("userName", userName);
         ModelAndView mv = new ModelAndView("SetDrByUserWord/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "SetDrByUserWord\\"+fs.getFileName());
+        fs.saveToFile(dir + "SetDrByUserWord\\" + fs.getFileName());
         fs.close();
     }
 

@@ -1,4 +1,5 @@
 package com.zhuozhengsoft.samples5.controller;
+
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
@@ -16,15 +17,17 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/SubmitWord/")
+@RequestMapping(value = "/SubmitWord/")
 public class SubmitWordController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
+    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static\\doc\\";
+
     public SubmitWordController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+
+    @RequestMapping(value = "Word", method = RequestMethod.GET)
+    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
         WordDocument wordDoc = new WordDocument();
         //打开数据区域，openDataRegion方法的参数代表Word文档中的书签名称
@@ -49,15 +52,15 @@ public class SubmitWordController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SubmitWord/test.doc", OpenModeType.docSubmitForm,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        poCtrl.webOpen("/doc/SubmitWord/test.doc", OpenModeType.docSubmitForm, "张三");
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("SubmitWord/Word");
         return mv;
     }
 
 
     @RequestMapping("save")
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,Map<String,Object> map){
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request, response);
         //获取提交的数值
         com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataUserName = doc.openDataRegion("PO_userName");
@@ -69,7 +72,7 @@ public class SubmitWordController {
 
         doc.showPage(500, 400);
         doc.close();
-        map.put("content",content);
+        map.put("content", content);
         ModelAndView mv = new ModelAndView("SubmitWord/save");
         return mv;
     }
