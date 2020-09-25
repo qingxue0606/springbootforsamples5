@@ -1,7 +1,6 @@
 package com.zhuozhengsoft.samples5.controller;
-import com.zhuozhengsoft.pageoffice.FileSaver;
-import com.zhuozhengsoft.pageoffice.OpenModeType;
-import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.*;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,23 +18,30 @@ public class FileMakerSingleController {
     private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
     public FileMakerSingleController() throws FileNotFoundException {
     }
+    @RequestMapping(value="index", method= RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+        String url=dir+"FileMakerSingle\\";
+        map.put("url",url);
+        ModelAndView mv = new ModelAndView("FileMakerSingle/index");
+        return mv;
+    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
+        fmCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+        WordDocument doc = new WordDocument();
+        //禁用右击事件
+        doc.setDisableWindowRightClick(true);
+        //给数据区域赋值，即把数据填充到模板中相应的位置
+        doc.openDataRegion("PO_company").setValue("北京卓正志远软件有限公司  ");
+        fmCtrl.setSaveFilePage("save");
+        fmCtrl.setWriter(doc);
+        fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
+        fmCtrl.setFileTitle("newfilename.doc");
+        fmCtrl.fillDocument("/doc/FileMakerSingle/test.doc", DocumentOpenType.Word);
 
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
-        //打开Word文档
-        poCtrl.webOpen("/doc/FileMakerSingle/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("pageoffice",fmCtrl.getHtmlCode("FileMakerCtrl1"));
         ModelAndView mv = new ModelAndView("FileMakerSingle/Word");
         return mv;
     }

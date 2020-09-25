@@ -16,22 +16,14 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordMergeCell/")
 public class WordMergeCellController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordMergeCellController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
+        poCtrl.setCustomToolbar(false);
 
         //打开Word文档
         poCtrl.webOpen("/doc/WordMergeCell/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -40,12 +32,5 @@ public class WordMergeCellController {
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordMergeCell\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

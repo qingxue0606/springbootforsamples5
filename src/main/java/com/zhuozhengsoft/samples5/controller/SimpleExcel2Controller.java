@@ -19,7 +19,7 @@ public class SimpleExcel2Controller {
     private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
     public SimpleExcel2Controller() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
+    @RequestMapping(value="Excel", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
@@ -34,9 +34,9 @@ public class SimpleExcel2Controller {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/SimpleExcel2/test.doc", OpenModeType.docNormalEdit,"张三");
+        poCtrl.webOpen("/doc/SimpleExcel2/test.xls", OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        ModelAndView mv = new ModelAndView("SimpleExcel2/Word");
+        ModelAndView mv = new ModelAndView("SimpleExcel2/Excel");
         return mv;
     }
 

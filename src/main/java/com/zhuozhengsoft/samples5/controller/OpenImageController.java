@@ -1,6 +1,7 @@
 package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
+import com.zhuozhengsoft.pageoffice.PDFCtrl;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,36 +17,32 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/OpenImage/")
 public class OpenImageController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public OpenImageController() throws FileNotFoundException {
-    }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
+
+    @RequestMapping(value="PDF", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
-        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+        PDFCtrl poCtrl = new PDFCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
+        // Create custom toolbar
+        poCtrl.addCustomToolButton("打印", "Print()", 6);
 
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("实际大小", "SetPageReal()", 16);
+        poCtrl.addCustomToolButton("适合页面", "SetPageFit()", 17);
+        poCtrl.addCustomToolButton("适合宽度", "SetPageWidth()", 18);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("左转", "RotateLeft()", 12);
+        poCtrl.addCustomToolButton("右转", "RotateRight()", 13);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("放大", "ZoomIn()", 14);
+        poCtrl.addCustomToolButton("缩小", "ZoomOut()", 15);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("全屏", "SwitchFullScreen()", 4);
+        poCtrl.webOpen("/doc/OpenImage/test.jpg");
 
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
-        //打开Word文档
-        poCtrl.webOpen("/doc/OpenImage/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        ModelAndView mv = new ModelAndView("OpenImage/Word");
+        map.put("pageoffice",poCtrl.getHtmlCode("PDFCtrl1"));
+        ModelAndView mv = new ModelAndView("OpenImage/pdf");
         return mv;
-    }
-
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "OpenImage\\"+fs.getFileName());
-        fs.close();
     }
 
 }

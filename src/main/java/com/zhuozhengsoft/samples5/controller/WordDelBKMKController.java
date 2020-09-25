@@ -16,23 +16,17 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordDelBKMK/")
 public class WordDelBKMKController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordDelBKMKController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
+        //隐藏菜单栏
+        poCtrl.setMenubar(true);
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
+        poCtrl.addCustomToolButton("删除光标处的","delBookMark()",7);
+        poCtrl.addCustomToolButton("删除选中文本中的","delChoBookMark()",7);
         //打开Word文档
         poCtrl.webOpen("/doc/WordDelBKMK/test.doc", OpenModeType.docNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
@@ -41,11 +35,5 @@ public class WordDelBKMKController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordDelBKMK\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

@@ -16,36 +16,21 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/HiddenRulars/")
 public class HiddenRularsController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public HiddenRularsController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
+        //隐藏菜单栏
+        poCtrl.setMenubar(false);
         //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
-
+        poCtrl.addCustomToolButton("显示/隐藏标尺","Hidden",3);
         //打开Word文档
         poCtrl.webOpen("/doc/HiddenRulars/test.doc", OpenModeType.docNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("HiddenRulars/Word");
         return mv;
-    }
-
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "HiddenRulars\\"+fs.getFileName());
-        fs.close();
     }
 
 }

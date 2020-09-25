@@ -2,6 +2,8 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.excelwriter.Sheet;
+import com.zhuozhengsoft.pageoffice.excelwriter.Workbook;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,36 +18,23 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/ExcelInsertImage/")
 public class ExcelInsertImageController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public ExcelInsertImageController() throws FileNotFoundException {
-    }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
+
+    @RequestMapping(value="Excel", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
+        Workbook workBook=new Workbook();
+        Sheet sheet1=workBook.openSheet("Sheet1");
+        sheet1.openCell("A1").setValue("[image]/doc/ExcelInsertImage/image/logo.jpg[/image]");
 
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        poCtrl.setWriter(workBook);//此行必须
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExcelInsertImage/test.doc", OpenModeType.docNormalEdit,"张三");
+        poCtrl.webOpen("/doc/ExcelInsertImage/test.xls", OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExcelInsertImage/Word");
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "ExcelInsertImage\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

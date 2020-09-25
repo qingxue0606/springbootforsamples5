@@ -16,10 +16,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/JsOpXlsCellText/")
 public class JsOpXlsCellTextController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public JsOpXlsCellTextController() throws FileNotFoundException {
-    }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
+
+    @RequestMapping(value="Excel", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
@@ -34,18 +32,11 @@ public class JsOpXlsCellTextController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/JsOpXlsCellText/test.doc", OpenModeType.docNormalEdit,"张三");
+        poCtrl.webOpen("/doc/JsOpXlsCellText/test.xls", OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        ModelAndView mv = new ModelAndView("JsOpXlsCellText/Word");
+        ModelAndView mv = new ModelAndView("JsOpXlsCellText/Excel");
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "JsOpXlsCellText\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

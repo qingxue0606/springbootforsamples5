@@ -24,14 +24,18 @@ public class DisableCopyOutController {
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
-
         //添加自定义按钮
         poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("打印设置","PrintSet",0);
+        poCtrl.addCustomToolButton("打印","PrintFile",6);
+        poCtrl.addCustomToolButton("全屏/还原", "IsFullScreen", 4);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("关闭","Close",21);
 
-
+        //** 关键代码 禁止拷贝文档内容到外部 **
+        poCtrl.setDisableCopyOnly(true);
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
 
         //打开Word文档
         poCtrl.webOpen("/doc/DisableCopyOut/test.doc", OpenModeType.docNormalEdit,"张三");

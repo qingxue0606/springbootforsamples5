@@ -16,22 +16,12 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/InsertPageBreak/")
 public class InsertPageBreakController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public InsertPageBreakController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        poCtrl.addCustomToolButton("插入分页符", "InsertPageBreak()", 1);
 
         //打开Word文档
         poCtrl.webOpen("/doc/InsertPageBreak/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -41,11 +31,5 @@ public class InsertPageBreakController {
     }
 
 
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "InsertPageBreak\\"+fs.getFileName());
-        fs.close();
-    }
 
 }

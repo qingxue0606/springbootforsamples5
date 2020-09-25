@@ -5,6 +5,7 @@ import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,8 +20,21 @@ public class HtmlWordController {
     private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
     public HtmlWordController() throws FileNotFoundException {
     }
-    @RequestMapping(value="Word", method= RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value="index", method= RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+
+        ModelAndView mv = new ModelAndView("HtmlWord/index");
+        return mv;
+    }
+    @RequestMapping(value="Word", method= RequestMethod.POST)
+    @ResponseBody
+    public String showWord(HttpServletRequest request, Map<String,Object> map){
+        String data="param1:" + request.getParameter("param1");
+        data+="<br>";
+        data+="param2:" + request.getParameter("param2");
+
+
+
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
 
@@ -35,9 +49,8 @@ public class HtmlWordController {
 
         //打开Word文档
         poCtrl.webOpen("/doc/HtmlWord/test.doc", OpenModeType.docNormalEdit,"张三");
-        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        ModelAndView mv = new ModelAndView("HtmlWord/Word");
-        return mv;
+        data+=poCtrl.getHtmlCode("PageOfficeCtrl1");
+        return data;
     }
 
 

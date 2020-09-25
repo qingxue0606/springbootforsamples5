@@ -19,23 +19,38 @@ public class ConcurrencyCtrlController {
     private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
     public ConcurrencyCtrlController() throws FileNotFoundException {
     }
+    @RequestMapping(value="index", method= RequestMethod.GET)
+    public ModelAndView showIndex(HttpServletRequest request, Map<String,Object> map){
+
+        ModelAndView mv = new ModelAndView("ConcurrencyCtrl/index");
+        return mv;
+    }
+
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
+        String userName = "somebody";
+        String userId = request.getParameter("userid").toString();
+        if (userId.equals("1"))
+        {
+            userName = "张三";
+        }
+        else
+        {
+            userName = "李四";
+        }
         poCtrl.addCustomToolButton("保存","Save",1);
-
-
+        //设置并发控制时间
+        poCtrl.setTimeSlice(20);
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
-
         //打开Word文档
-        poCtrl.webOpen("/doc/ConcurrencyCtrl/test.doc", OpenModeType.docNormalEdit,"张三");
+        poCtrl.webOpen("/doc/ConcurrencyCtrl/test.doc", OpenModeType.docRevisionOnly,userName);
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("userName",userName);
         ModelAndView mv = new ModelAndView("ConcurrencyCtrl/Word");
         return mv;
     }

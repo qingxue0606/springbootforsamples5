@@ -2,6 +2,9 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.Cell;
+import com.zhuozhengsoft.pageoffice.wordwriter.Table;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,22 +19,18 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/WordDeleteRow/")
 public class WordDeleteRowController {
-    private String dir= ResourceUtils.getURL("classpath:").getPath()+"static\\doc\\";
-    public WordDeleteRowController() throws FileNotFoundException {
-    }
+
     @RequestMapping(value="Word", method= RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//设置服务页面
-
-
-        //添加自定义按钮
-        poCtrl.addCustomToolButton("保存","Save",1);
-
-
-        //设置保存页面
-        poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-
+        WordDocument doc = new WordDocument();
+        Table table1 = doc.openDataRegion("PO_table").openTable(1);
+        Cell cell=table1.openCellRC(2,1);
+        //删除坐标为(2,1)的单元格所在行
+        table1.removeRowAt(cell);
+        poCtrl.setCustomToolbar(false);
+        poCtrl.setWriter(doc);
 
         //打开Word文档
         poCtrl.webOpen("/doc/WordDeleteRow/test.doc", OpenModeType.docNormalEdit,"张三");
@@ -40,12 +39,5 @@ public class WordDeleteRowController {
         return mv;
     }
 
-
-    @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response){
-        FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir+ "WordDeleteRow\\"+fs.getFileName());
-        fs.close();
-    }
 
 }
