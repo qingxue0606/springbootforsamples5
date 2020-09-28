@@ -15,11 +15,11 @@
 <body>
 <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc; padding: 5px;">
     <span style="color: red;">操作说明：</span>点“签字”按钮即可，插入签字时的用户名为：李志，密码默认为：111111。
-    <br /> 关键代码：点右键，选择“查看源文件”，看js函数
+    <br/> 关键代码：点右键，选择“查看源文件”，看js函数
     <span style="background-color: Yellow;">InsertHandSign()</span>
 
 </div>
-<br />
+<br/>
 <script type="text/javascript">
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
@@ -33,8 +33,10 @@
              * 第二个参数，可选项，标识是否保护文档，为null时保护文档，为空字符串时不保护文档;
              * 第三个参数，可选项，标识盖章指定位置名称，须为英文或数字，不区分大小写。
              */
-            document.getElementById("PageOfficeCtrl1").ZoomSeal.AddHandSign("",null,"Seal1");
-        } catch(e) {};
+            document.getElementById("PageOfficeCtrl1").ZoomSeal.AddHandSign("", null, "Seal1");
+        } catch (e) {
+        }
+        ;
     }
 </script>
 <div style="width: auto; height: 700px;" th:utext="${pageoffice}">

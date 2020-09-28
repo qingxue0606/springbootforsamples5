@@ -26,7 +26,7 @@ public class ExcelInsertSealController {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
-//添加自定义按钮
+        //添加自定义按钮
         poCtrl.addCustomToolButton("保存", "Save", 1);
         poCtrl.addCustomToolButton("加盖印章", "InsertSeal()", 2);
         poCtrl.addCustomToolButton("删除印章", "DeleteSeal()", 21);
@@ -60,6 +60,7 @@ public class ExcelInsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/Excel/AddSeal/Excel2");
         return mv;
     }
+
     @RequestMapping(value = "AddSeal/Excel3", method = RequestMethod.GET)
     public ModelAndView showExcel3(HttpServletRequest request, Map<String, Object> map) {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
@@ -123,7 +124,6 @@ public class ExcelInsertSealController {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面
 
-
         //添加自定义按钮
         poCtrl.addCustomToolButton("保存", "Save", 1);
         poCtrl.addCustomToolButton("签字", "AddHandSign()", 3);
@@ -148,7 +148,7 @@ public class ExcelInsertSealController {
 
         //添加自定义按钮
         poCtrl.addCustomToolButton("保存", "Save", 1);
-        poCtrl.addCustomToolButton("签字", "InsertHandSign()",3);
+        poCtrl.addCustomToolButton("签字", "InsertHandSign()", 3);
         poCtrl.addCustomToolButton("修改密码", "ChangePsw()", 0);
         //设置保存页面
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
@@ -159,6 +159,7 @@ public class ExcelInsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/Excel/AddSign/Excel2");
         return mv;
     }
+
     @RequestMapping(value = "AddSign/Excel3", method = RequestMethod.GET)
     public ModelAndView showExcel13(HttpServletRequest request, Map<String, Object> map) {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
@@ -180,13 +181,13 @@ public class ExcelInsertSealController {
     }
 
 
-
     @RequestMapping("AddSeal/save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
         fs.saveToFile(dir + "InsertSeal/Excel/AddSeal/" + fs.getFileName());
         fs.close();
     }
+
     @RequestMapping("AddSign/save")
     public void save2(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);

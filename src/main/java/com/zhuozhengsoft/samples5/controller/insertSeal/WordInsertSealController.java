@@ -21,9 +21,8 @@ public class WordInsertSealController {
     }
 
 
-
-    @RequestMapping(value="BatchAddSeal/index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "BatchAddSeal/index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
         map.put("url", dir + "InsertSeal/Word/BatchAddSeal/");
 
         ModelAndView mv = new ModelAndView("InsertSeal/word/BatchAddSeal/index");
@@ -58,7 +57,7 @@ public class WordInsertSealController {
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/InsertSeal/Word/BatchAddSeal/"+filePath, OpenModeType.docNormalEdit, "张三");
+        poCtrl.webOpen("/doc/InsertSeal/Word/BatchAddSeal/" + filePath, OpenModeType.docNormalEdit, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("InsertSeal/Word/BatchAddSeal/Edit");
         return mv;
@@ -89,13 +88,12 @@ public class WordInsertSealController {
         fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
         //设置保存页面
         fmCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
-        fmCtrl.fillDocument("/doc/InsertSeal/Word/BatchAddSeal/"+filePath, DocumentOpenType.Word);
+        fmCtrl.fillDocument("/doc/InsertSeal/Word/BatchAddSeal/" + filePath, DocumentOpenType.Word);
 
         map.put("pageoffice", fmCtrl.getHtmlCode("FileMakerCtrl1"));
         ModelAndView mv = new ModelAndView("InsertSeal/Word/BatchAddSeal/AddSeal");
         return mv;
     }
-
 
 
     @RequestMapping("BatchAddSeal/save")
@@ -104,9 +102,6 @@ public class WordInsertSealController {
         fs.saveToFile(dir + "InsertSeal/Word/BatchAddSeal/" + fs.getFileName());
         fs.close();
     }
-
-
-
 
 
     @RequestMapping(value = "AddSeal/Word1", method = RequestMethod.GET)
@@ -150,6 +145,7 @@ public class WordInsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/Word/AddSeal/Word2");
         return mv;
     }
+
     @RequestMapping(value = "AddSeal/Word3", method = RequestMethod.GET)
     public ModelAndView showWord3(HttpServletRequest request, Map<String, Object> map) {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
@@ -309,7 +305,7 @@ public class WordInsertSealController {
 
 //添加自定义按钮
         poCtrl.addCustomToolButton("保存", "Save", 1);
-        poCtrl.addCustomToolButton("签字", "InsertHandSign()",3);
+        poCtrl.addCustomToolButton("签字", "InsertHandSign()", 3);
         poCtrl.addCustomToolButton("验证印章", "VerifySeal()", 5);
         poCtrl.addCustomToolButton("修改密码", "ChangePsw()", 0);
         //设置保存页面
@@ -340,6 +336,7 @@ public class WordInsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/Word/AddSign/Word2");
         return mv;
     }
+
     @RequestMapping(value = "AddSign/Word3", method = RequestMethod.GET)
     public ModelAndView showWord13(HttpServletRequest request, Map<String, Object> map) {
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
@@ -395,15 +392,13 @@ public class WordInsertSealController {
     }
 
 
-
-
-
     @RequestMapping("AddSeal/save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
         fs.saveToFile(dir + "InsertSeal/Word/AddSeal/" + fs.getFileName());
         fs.close();
     }
+
     @RequestMapping("AddSign/save")
     public void save2(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);

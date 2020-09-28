@@ -15,11 +15,11 @@
 <body>
 <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc; padding: 5px;">
     <span style="color: red;">操作说明：</span>点“签字”按钮即可，插入印章时的用户名为：李志，密码默认为：111111。
-    <br /> 关键代码：点右键，选择“查看源文件”，看js函数
+    <br/> 关键代码：点右键，选择“查看源文件”，看js函数
     <span style="background-color: Yellow;"> AddHandSign()</span>
 </div>
-<br />
-<br />
+<br/>
+<br/>
 <script type="text/javascript">
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
@@ -27,8 +27,10 @@
 
     function AddHandSign() {
         try {
-            document.getElementById("PageOfficeCtrl1").ZoomSeal.AddHandSign("","");//第二个参数为空字符串时，签完名的文档是不受保护的，即签完名后还可以进行编辑等操作；第二个参数为null时，签完名的文档是受保护的，即签完名后不能再进行编辑等操作。
-        } catch(e) {};
+            document.getElementById("PageOfficeCtrl1").ZoomSeal.AddHandSign("", "");//第二个参数为空字符串时，签完名的文档是不受保护的，即签完名后还可以进行编辑等操作；第二个参数为null时，签完名的文档是受保护的，即签完名后不能再进行编辑等操作。
+        } catch (e) {
+        }
+        ;
     }
 
     function VerifySeal() {
