@@ -54,6 +54,10 @@ public class InsertSealController {
         copyFile(dir + "InsertSeal/Word/BatchAddSeal/test3_bak.doc", dir + "InsertSeal/Word/BatchAddSeal/test3.doc");
         copyFile(dir + "InsertSeal/Word/BatchAddSeal/test4_bak.doc", dir + "InsertSeal/Word/BatchAddSeal/test4.doc");
 
+
+        copyFile(dir + "InsertSeal/PDF/AddSeal/test1_bak.pdf", dir + "InsertSeal/PDF/AddSeal/test1.pdf");
+        copyFile(dir + "InsertSeal/PDF/AddSign/test1_bak.pdf", dir + "InsertSeal/PDF/AddSign/test1.pdf");
+
         copyFile(dir + "InsertSeal/Excel/AddSeal/test1_bak.xls", dir + "InsertSeal/Excel/AddSeal/test1.xls");
         copyFile(dir + "InsertSeal/Excel/AddSeal/test2_bak.xls", dir + "InsertSeal/Excel/AddSeal/test2.xls");
         copyFile(dir + "InsertSeal/Excel/AddSeal/test3_bak.xls", dir + "InsertSeal/Excel/AddSeal/test3.xls");
@@ -67,7 +71,6 @@ public class InsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/refresh");
         return mv;
     }
-
 
     //拷贝文件
     private void copyFile(String oldPath, String newPath) {
