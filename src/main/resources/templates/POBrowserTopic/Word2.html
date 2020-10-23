@@ -13,12 +13,12 @@
 </script>
 
 
-(1)获取index.jsp用session传递过来的userName的值：</br>
+(1)获取index用session传递过来的userName的值：</br>
 &nbsp;&nbsp;&nbsp;代码：String userName=(String)session.getAttribute("userName");</br>
 &nbsp;&nbsp;&nbsp;输出：UserName=<span th:utext="${userName}"></span></br></br>
 
 
-(2)获取index.jsp用？传递过来的id的值：</br>
+(2)获取index用？传递过来的id的值：</br>
 &nbsp;&nbsp;&nbsp;代码：String id=request.getParameter("id");</br>
 &nbsp;&nbsp;&nbsp;输出：id=<span th:utext="${id}"></span></br>
 

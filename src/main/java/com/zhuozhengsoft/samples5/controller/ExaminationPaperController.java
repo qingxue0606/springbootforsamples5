@@ -27,11 +27,13 @@ public class ExaminationPaperController {
 
     public ExaminationPaperController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map) throws SQLException, FileNotFoundException, ClassNotFoundException {
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) throws SQLException, FileNotFoundException, ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/ExaminationPaper.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/ExaminationPaper.db";
+        ;
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -59,11 +61,10 @@ public class ExaminationPaperController {
             strHtmls.append("</td></tr>\r\n");
         }
 
-        map.put("strHtmls",strHtmls);
+        map.put("strHtmls", strHtmls);
         ModelAndView mv = new ModelAndView("ExaminationPaper/index");
         return mv;
     }
-
 
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
@@ -86,7 +87,6 @@ public class ExaminationPaperController {
         ModelAndView mv = new ModelAndView("ExaminationPaper/Word");
         return mv;
     }
-
 
 
     @RequestMapping(value = "Compose", method = RequestMethod.GET)
@@ -128,13 +128,12 @@ public class ExaminationPaperController {
         poCtrl.setJsFunction_AfterDocumentOpened("Create()");
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExaminationPaper/test.doc" , OpenModeType.docNormalEdit, "张三");
+        poCtrl.webOpen("/doc/ExaminationPaper/test.doc", OpenModeType.docNormalEdit, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("operateStr",operateStr);
+        map.put("operateStr", operateStr);
         ModelAndView mv = new ModelAndView("ExaminationPaper/Compose");
         return mv;
     }
-
 
 
     @RequestMapping(value = "Compose2", method = RequestMethod.GET)
@@ -168,7 +167,7 @@ public class ExaminationPaperController {
         poCtrl.setWriter(doc);
 
         //打开Word文档
-        poCtrl.webOpen("/doc/ExaminationPaper/test.doc" , OpenModeType.docNormalEdit, "张三");
+        poCtrl.webOpen("/doc/ExaminationPaper/test.doc", OpenModeType.docNormalEdit, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("ExaminationPaper/Compose2");
         return mv;
@@ -181,7 +180,8 @@ public class ExaminationPaperController {
                 && request.getParameter("id").trim().length() > 0) {
             String id = request.getParameter("id");
             Class.forName("org.sqlite.JDBC");
-            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/ExaminationPaper.db"; ;
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/ExaminationPaper.db";
+            ;
 
             Connection conn = DriverManager.getConnection(strUrl);
             Statement stmt = conn.createStatement();
@@ -216,7 +216,6 @@ public class ExaminationPaperController {
             err = "<script>alert(" + err + ");</script>";
 
     }
-
 
 
     @RequestMapping("save")

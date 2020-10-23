@@ -58,7 +58,8 @@ public class DataBaseController {
         }
         Class.forName("org.sqlite.JDBC");
 
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/DataBase.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/DataBase.db";
+        ;
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -89,9 +90,6 @@ public class DataBaseController {
     }
 
 
-
-
-
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException {
         FileSaver fs = new FileSaver(request, response);
@@ -100,7 +98,8 @@ public class DataBaseController {
                 && request.getParameter("id").trim().length() > 0) {
             String id = request.getParameter("id").trim();
             Class.forName("org.sqlite.JDBC");
-            String strUrl =  "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/DataBase.db";;
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/DataBase.db";
+            ;
             Connection conn = DriverManager.getConnection(strUrl);
             String sql = "UPDATE  Stream SET Word=?  where ID=" + id;
             PreparedStatement pstmt = null;

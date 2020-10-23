@@ -56,9 +56,9 @@ public class POBrowserTopicController {
     @RequestMapping(value = "Word2", method = RequestMethod.GET)
     public ModelAndView showWord2(HttpServletRequest request, Map<String, Object> map, HttpSession session) {
 
-        //获取index.jsp页面传递过来参数的值
+        //获取index页面传递过来参数的值
         String userName = (String) session.getAttribute("userName");
-        //获取index.jsp用？传递过来的id的值
+        //获取index用？传递过来的id的值
         String id = request.getParameter("id");
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
         poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");//设置服务页面

@@ -36,7 +36,7 @@ public class DataTagEditController {
         poCtrl.addCustomToolButton("定义数据标签", "ShowDefineDataTags()", 20);
 
         poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
-        poCtrl.setSaveFilePage("SaveFile.jsp");
+        poCtrl.setSaveFilePage("save");
 
         poCtrl.setTheme(ThemeType.Office2007);
         poCtrl.setBorderStyle(BorderStyleType.BorderThin);

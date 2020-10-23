@@ -53,7 +53,6 @@ public class PDFInsertSealController {
     }
 
 
-
     @RequestMapping(value = "AddSign/PDF1", method = RequestMethod.GET)
     public ModelAndView showWord11(HttpServletRequest request, Map<String, Object> map) {
         PDFCtrl pdfCtrl1 = new PDFCtrl(request);
@@ -85,7 +84,6 @@ public class PDFInsertSealController {
         ModelAndView mv = new ModelAndView("InsertSeal/PDF/AddSign/PDF1");
         return mv;
     }
-
 
 
     @RequestMapping("AddSeal/save")

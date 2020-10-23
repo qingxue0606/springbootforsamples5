@@ -2,7 +2,7 @@ package com.zhuozhengsoft.samples5.entity;
 
 import java.io.Serializable;
 
-public class Doc  implements  Serializable{
+public class Doc implements Serializable {
 
     private static final long serialVersionUID = -3338311466063761376L;
     private int id;

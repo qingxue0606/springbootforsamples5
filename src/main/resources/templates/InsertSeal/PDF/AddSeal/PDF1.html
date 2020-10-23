@@ -13,7 +13,8 @@
     function InsertSeal() {
         try {
             document.getElementById("PDFCtrl1").ZoomSeal.AddSeal();//如果使用ZoomSeal中的USBKEY方式盖章，第一个参数不能为盖章用户登录名，只能为null或者空字符串
-        } catch(e) {}
+        } catch (e) {
+        }
     }
 
     function AfterDocumentOpened() {

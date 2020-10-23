@@ -30,12 +30,14 @@ public class WordSalaryBillController {
 
     public WordSalaryBillController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map) throws ClassNotFoundException, FileNotFoundException, SQLException {
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) throws ClassNotFoundException, FileNotFoundException, SQLException {
 
         Class.forName("org.sqlite.JDBC");
 
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db";
+        ;
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -80,10 +82,11 @@ public class WordSalaryBillController {
         }
 
 
-        map.put("strHtmls",strHtmls);
+        map.put("strHtmls", strHtmls);
         ModelAndView mv = new ModelAndView("WordSalaryBill/index");
         return mv;
     }
+
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) throws ClassNotFoundException, FileNotFoundException, SQLException {
         String err = "";
@@ -97,7 +100,8 @@ public class WordSalaryBillController {
             String strSql = "select * from Salary where id =" + id
                     + " order by ID";
             Class.forName("org.sqlite.JDBC");
-            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db"; ;
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db";
+            ;
 
             Connection conn = DriverManager.getConnection(strUrl);
             Statement stmt = conn.createStatement();
@@ -170,7 +174,8 @@ public class WordSalaryBillController {
             String strSql = "select * from Salary where id =" + id
                     + " order by ID";
             Class.forName("org.sqlite.JDBC");
-            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db"; ;
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db";
+            ;
 
             Connection conn = DriverManager.getConnection(strUrl);
             Statement stmt = conn.createStatement();
@@ -260,7 +265,8 @@ public class WordSalaryBillController {
 
         Class.forName("org.sqlite.JDBC");
 
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db";
+        ;
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -333,7 +339,8 @@ public class WordSalaryBillController {
             String strSql = "select * from Salary where id =" + id
                     + " order by ID";
             Class.forName("org.sqlite.JDBC");
-            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db"; ;
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/WordSalaryBill.db";
+            ;
 
             Connection conn = DriverManager.getConnection(strUrl);
             Statement stmt = conn.createStatement();

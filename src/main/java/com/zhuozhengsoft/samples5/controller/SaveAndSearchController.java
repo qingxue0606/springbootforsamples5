@@ -27,8 +27,9 @@ public class SaveAndSearchController {
 
     public SaveAndSearchController() throws FileNotFoundException {
     }
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map) throws ClassNotFoundException, FileNotFoundException, UnsupportedEncodingException, SQLException {
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) throws ClassNotFoundException, FileNotFoundException, UnsupportedEncodingException, SQLException {
 
 
         String key = request.getParameter("Input_KeyWord");
@@ -42,7 +43,8 @@ public class SaveAndSearchController {
             sql = "select * from word order by ID desc";
         }
         Class.forName("org.sqlite.JDBC");
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db";
+        ;
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -64,7 +66,6 @@ public class SaveAndSearchController {
         map.put("key", key);
 
 
-
         ModelAndView mv = new ModelAndView("SaveAndSearch/index");
         return mv;
     }
@@ -77,7 +78,8 @@ public class SaveAndSearchController {
         int id = Integer.parseInt(request.getParameter("id"));
         //根据id查询数据库中对应的文档名称
         Class.forName("org.sqlite.JDBC");
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db";
+        ;
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
         String sql = "select * from word where id=" + id;
@@ -100,7 +102,7 @@ public class SaveAndSearchController {
         //设置保存页面
         poCtrl.setSaveFilePage("save?id=" + id);//设置处理文件保存的请求方法
 
-        String filePath = (dir +"SaveAndSearch/"+ FileName + ".doc").replace("/","\\");
+        String filePath = (dir + "SaveAndSearch/" + FileName + ".doc").replace("/", "\\");
 
         //打开Word文档
         poCtrl.webOpen(filePath, OpenModeType.docNormalEdit, "张三");
@@ -119,7 +121,8 @@ public class SaveAndSearchController {
         //更新数据库中文档的文本内容
         int id = Integer.parseInt(request.getParameter("id"));
         Class.forName("org.sqlite.JDBC");
-        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db"; ;
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/SaveAndSearch.db";
+        ;
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
         String strsql = "update word set Content='" + strDocumentText + "' where id=" + id;

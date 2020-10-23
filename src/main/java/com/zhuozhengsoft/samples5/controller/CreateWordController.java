@@ -35,7 +35,7 @@ public class CreateWordController {
 
         if (request.getParameter("op") != null && request.getParameter("op").length() > 0) {
             Class.forName("org.sqlite.JDBC");
-            String strUrl ="jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
+            String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
             Connection conn = DriverManager.getConnection(strUrl);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select Max(ID) from word");
@@ -60,8 +60,8 @@ public class CreateWordController {
 
             //拷贝文件
             //if(request.getParameter("action").equals("create")){
-            String oldPath =dir+" CreateWord/template.doc";
-            String newPath = dir+" CreateWord/" + fileName;
+            String oldPath = dir + " CreateWord/template.doc";
+            String newPath = dir + " CreateWord/" + fileName;
             try {
                 int bytesum = 0;
                 int byteread = 0;
@@ -83,14 +83,12 @@ public class CreateWordController {
                 e.printStackTrace();
             }
             //}
-            return  new ModelAndView("redirect:/CreateWord/word-lists") ;
+            return new ModelAndView("redirect:/CreateWord/word-lists");
         }
 
 
-
-
         Class.forName("org.sqlite.JDBC");
-        String strUrl ="jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -134,7 +132,6 @@ public class CreateWordController {
     }
 
 
-
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) throws ClassNotFoundException, FileNotFoundException, SQLException {
         String subject = "";
@@ -142,7 +139,7 @@ public class CreateWordController {
 
 
         Class.forName("org.sqlite.JDBC");
-        String strUrl ="jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
         String id = request.getParameter("id");
@@ -154,8 +151,6 @@ public class CreateWordController {
         }
         stmt.close();
         conn.close();
-
-
 
 
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
@@ -170,15 +165,12 @@ public class CreateWordController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/CreateWord/"+fileName, OpenModeType.docNormalEdit, "张三");
+        poCtrl.webOpen("/doc/CreateWord/" + fileName, OpenModeType.docNormalEdit, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        map.put("subject",subject);
+        map.put("subject", subject);
         ModelAndView mv = new ModelAndView("CreateWord/Word");
         return mv;
     }
-
-
-
 
 
     @RequestMapping(value = "creatWord", method = RequestMethod.GET)
@@ -206,15 +198,13 @@ public class CreateWordController {
     }
 
 
-
-
     @RequestMapping("SaveNewFile")
-    public void save2(HttpServletRequest request, HttpServletResponse response)throws ClassNotFoundException, FileNotFoundException, SQLException {
+    public void save2(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException {
         FileSaver fs = new FileSaver(request, response);
 
 
         Class.forName("org.sqlite.JDBC");
-        String strUrl ="jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
+        String strUrl = "jdbc:sqlite:" + ResourceUtils.getURL("classpath:").getPath() + "static/demodata/CreateWord.db";
 
         Connection conn = DriverManager.getConnection(strUrl);
         Statement stmt = conn.createStatement();
@@ -252,7 +242,7 @@ public class CreateWordController {
     }
 
     @RequestMapping("save")
-    public void save(HttpServletRequest request, HttpServletResponse response)  {
+    public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
 
 

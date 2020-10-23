@@ -25,9 +25,8 @@ public class TaoHongController {
     }
 
 
-
-    @RequestMapping(value="index", method= RequestMethod.GET)
-    public ModelAndView showindex(HttpServletRequest request, Map<String,Object> map){
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
         ModelAndView mv = new ModelAndView("TaoHong/index");
         return mv;
     }
@@ -97,7 +96,7 @@ public class TaoHongController {
 
 
         //打开Word文档
-        poCtrl.webOpen("/doc/TaoHong/"+fileName, OpenModeType.docNormalEdit, "张三");
+        poCtrl.webOpen("/doc/TaoHong/" + fileName, OpenModeType.docNormalEdit, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("TaoHong/taoHong");
         return mv;
@@ -121,7 +120,7 @@ public class TaoHongController {
         poCtrl.setSaveFilePage("save");//设置处理文件保存的请求方法
 
         //打开Word文档
-        poCtrl.webOpen("/doc/TaoHong/"+fileName, OpenModeType.docReadOnly, "张三");
+        poCtrl.webOpen("/doc/TaoHong/" + fileName, OpenModeType.docReadOnly, "张三");
         map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
         ModelAndView mv = new ModelAndView("TaoHong/Word");
         return mv;
