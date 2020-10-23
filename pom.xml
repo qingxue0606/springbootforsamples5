@@ -20,7 +20,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -41,7 +40,6 @@
             <groupId>com.zhuozhengsoft</groupId>
             <artifactId>pageoffice</artifactId>
             <version>5.1.0.2</version>
-
         </dependency>
     </dependencies>
 

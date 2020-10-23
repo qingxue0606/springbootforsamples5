@@ -146,12 +146,12 @@ public class WordSalaryBillController {
                 }
 
             } else {
-                err = "<script>alert('未获得该员工的工资信息！');location.href='index.jsp'</script>";
+                err = "<script>alert('未获得该员工的工资信息！');location.href='index..html'</script>";
             }
             rs.close();
             conn.close();
         } else {
-            err = "<script>alert('未获得该工资信息的ID！');location.href='index.jsp'</script>";
+            err = "<script>alert('未获得该工资信息的ID！');location.href='index..html'</script>";
         }
         poCtrl.setWriter(doc);
 
@@ -232,7 +232,7 @@ public class WordSalaryBillController {
                 }
 
             } else {
-                err = "<script>alert('未获得该员工的工资信息！');location.href='index.jsp'</script>";
+                err = "<script>alert('未获得该员工的工资信息！');location.href='index..html'</script>";
             }
             rs.close();
             conn.close();
@@ -241,7 +241,7 @@ public class WordSalaryBillController {
             poCtrl.setSaveDataPage("SaveData?ID=" + id);
             poCtrl.setWriter(doc);
         } else {
-            err = "<script>alert('未获得该工资信息的ID！');location.href='index.jsp'</script>";
+            err = "<script>alert('未获得该工资信息的ID！');location.href='index..html'</script>";
         }
 
         //打开Word文档
