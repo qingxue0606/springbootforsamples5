@@ -20,7 +20,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/DataBase/")
 public class DataBaseController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
 
     public DataBaseController() throws FileNotFoundException {
     }
