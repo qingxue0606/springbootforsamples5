@@ -3,6 +3,7 @@ package com.zhuozhengsoft.samples5.controller;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.samples5.DirUtil;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/CommentOnly/")
 public class CommentOnlyController {
-    private String dir = ResourceUtils.getURL("classpath:").getPath() + "static/doc/";
-
-    public CommentOnlyController() throws FileNotFoundException {
-    }
+    private String dir = DirUtil.getDir() + "static/doc/";
 
     @RequestMapping(value = "Word", method = RequestMethod.GET)
     public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {

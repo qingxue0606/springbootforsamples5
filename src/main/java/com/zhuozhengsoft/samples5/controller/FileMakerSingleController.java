@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Map;
 
 @RestController
@@ -23,14 +23,12 @@ public class FileMakerSingleController {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView showindex(HttpServletRequest request, Map<String, Object> map) {
-        String url = dir + "FileMakerSingle/";
-        map.put("url", url);
         ModelAndView mv = new ModelAndView("FileMakerSingle/index");
         return mv;
     }
 
-    @RequestMapping(value = "Word", method = RequestMethod.GET)
-    public ModelAndView showWord(HttpServletRequest request, Map<String, Object> map) {
+    @RequestMapping(value = "FileMaker", method = RequestMethod.GET)
+    public ModelAndView showFileMaker(HttpServletRequest request, Map<String, Object> map) {
         FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
         fmCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
         WordDocument doc = new WordDocument();
@@ -45,15 +43,59 @@ public class FileMakerSingleController {
         fmCtrl.fillDocument("/doc/FileMakerSingle/test.doc", DocumentOpenType.Word);
 
         map.put("pageoffice", fmCtrl.getHtmlCode("FileMakerCtrl1"));
-        ModelAndView mv = new ModelAndView("FileMakerSingle/Word");
+        map.put("type", request.getParameter("type"));
+
+        ModelAndView mv = new ModelAndView("FileMakerSingle/FileMaker");
         return mv;
     }
+
+
+    @RequestMapping(value = "OpenWord", method = RequestMethod.GET)
+    public ModelAndView OpenWord(HttpServletRequest request, Map<String, Object> map) {
+        PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+        //设置服务器页面
+        poCtrl.setCustomToolbar(false);
+        poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
+        poCtrl.webOpen("/doc/FileMakerSingle/maker.doc", OpenModeType.docReadOnly, "张佚名");
+
+        map.put("pageoffice", poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        map.put("type", request.getParameter("type"));
+
+        ModelAndView mv = new ModelAndView("FileMakerSingle/OpenWord");
+        return mv;
+    }
+
+
+    @RequestMapping("DownWord")
+    public void DownWord(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String filePath =dir + "FileMakerSingle/maker.doc";
+        int fileSize =(int)new File(filePath).length();
+
+        response.reset();
+        response.setContentType("application/msword"); // application/x-excel, application/ms-powerpoint, application/pdf
+        response.setHeader("Content-Disposition", "attachment; filename=maker.doc");
+        response.setContentLength(fileSize);
+
+        OutputStream outputStream = response.getOutputStream();
+        InputStream inputStream = new FileInputStream(filePath);
+        byte[] buffer = new byte[10240];
+        int i = -1;
+        while ((i = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, i);
+        }
+
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+    }
+
+
 
 
     @RequestMapping("save")
     public void save(HttpServletRequest request, HttpServletResponse response) {
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile(dir + "FileMakerSingle/" + fs.getFileName());
+        fs.saveToFile(dir + "FileMakerSingle/maker" + fs.getFileExtName());
         fs.close();
     }
 

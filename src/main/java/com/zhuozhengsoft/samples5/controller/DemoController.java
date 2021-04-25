@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuozhengsoft.pageoffice.*;
@@ -46,14 +48,16 @@ public class DemoController {
         String poSysPath = ResourceUtils.getURL("classpath:").getPath() + "static/lic";
 
         poserver.setSysPath(poSysPath);//设置PageOffice注册成功后,license.lic文件存放的目录
+
         ServletRegistrationBean srb = new ServletRegistrationBean(poserver);
+
         srb.addUrlMappings("/poserver.zz");
         srb.addUrlMappings("/posetup.exe");
         srb.addUrlMappings("/pageoffice.js");
         srb.addUrlMappings("/jquery.min.js");
         srb.addUrlMappings("/pobstyle.css");
         srb.addUrlMappings("/sealsetup.exe");
-        return srb;// 
+        return srb;//
     }
 
     /**
